@@ -8,8 +8,11 @@ electronReload(__dirname, {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 800,
+    minWidth: 500,
+    minHeight: 400,
+    icon: path.join(__dirname, 'assets/icon.icns'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

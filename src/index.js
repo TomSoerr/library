@@ -1,12 +1,7 @@
-import './fonts.css';
+import './index.css';
+import Helper from './helper';
+import Nav from './modules/nav/nav';
 
-document.body.innerHTML = `
-  <h1 class="font">Hello World</h1>
-  <p class="font">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </p>
-`;
+Helper.main = Helper.createElement('main');
 
-console.log('Hello World');
+document.body.append(Nav, Helper.main);

@@ -13,6 +13,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Kiara's Bücher",
+      template: './src/index.html',
     }),
   ],
   module: {

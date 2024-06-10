@@ -15,16 +15,17 @@
 - Spice Level (1-5)
 - Gelesen / Ungelesen
 - Favorit
-- Notizen
-- Beendet am (Datum)
 - Leseexemplar
 - Wenn Reihe -> Welcher Band
+- Notizensu
+- Beendet am (Datum)
 
 
 ## Funktionen
 
 - charts.js
 - Sortierfunktion (Nachname Author)
+- import and export database
 
 
 ## Farben

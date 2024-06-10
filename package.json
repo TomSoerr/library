@@ -22,5 +22,17 @@
   },
   "dependencies": {
     "sqlite3": "^5.1.7"
+  },
+  "build": {
+    "appId": "com.kiara.library",
+    "mac": {
+      "icon": "assets/icon.icns"
+    },
+    "win": {
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "icon": "assets/icon.png"
+    }
   }
 }

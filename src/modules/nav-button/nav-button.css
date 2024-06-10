@@ -1,0 +1,34 @@
+.nav-button div::after {
+  content: var(--icon);
+}
+
+.nav-button {
+  height: var(--space-xxl);
+  width: var(--space-xxl);
+  font-family: var(--icon-font);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--color-on-surface-variant);
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.nav-button.background {
+  height: 5.6rem;
+  width: 5.6rem;
+  background-color: var(--color-tertiary-container);
+  border-radius: 1.6rem;
+}
+
+.nav-button:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 0.05;
+}
+
+.nav-button.background:hover::after {
+  background-color: black;
+}
