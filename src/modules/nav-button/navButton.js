@@ -8,15 +8,7 @@ import { _ } from '../../helper';
  * @returns {HTMLElement} - The created icon button
  */
 export default ({ icon, aria, background }) =>
-  _('button', {
-    attr: {
-      'class': `nav-button none${background ? ' background' : ''}`,
-      'aria-label': aria,
-      'title': aria,
-    },
-    children: [
-      _('div', {
-        attr: { style: `--icon: ${icon};` },
-      }),
-    ],
-  });
+  _(
+    `button.nav-button.none${background ? '.background' : ''}[title="${aria}",aria-label="${aria}"]`,
+    [_(`div[style="--icon: '${icon}';"]`)],
+  );
