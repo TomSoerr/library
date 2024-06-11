@@ -1,7 +1,7 @@
 #nav {
   background-color: var(--color-surface-container-low);
   height: 100vh;
-  width: 8rem;
+  width: var(--nav-width);
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -12,4 +12,8 @@
 
 #nav > div {
   display: contents;
+}
+
+#nav > div:first-child > :last-child {
+  margin-bottom: var(--space-xl);
 }

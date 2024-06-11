@@ -32,9 +32,9 @@
 
 @font-face {
   font-display: swap;
-  font-family: "Material Symbols Outlined";
+  font-family: "MS";
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/material-symbols-outlined-v192-latin-regular.woff2")
+  src: url("./fonts/material-symbols-rounded-v190-latin-regular.woff2")
     format("woff2");
 }

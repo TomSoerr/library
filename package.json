@@ -1,5 +1,5 @@
 {
-  "name": "library",
+  "name": "Library",
   "private": true,
   "main": "main.js",
   "prettier": "./prettierrc.json",

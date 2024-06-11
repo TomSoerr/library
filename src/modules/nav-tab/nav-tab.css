@@ -1,0 +1,14 @@
+.nav-tab {
+  color: var(--color-on-surface-variant);
+}
+
+.nav-tab div::after {
+  content: var(--icon);
+}
+
+.nav-tab div {
+  font-family: var(--icon-font);
+  height: var(--space-xl);
+  font-size: var(--space-l);
+  line-height: 1;
+}

@@ -3,6 +3,23 @@ import data from './sampleData.js';
 class Helper {
   static main = null;
 
+  static currentPage = null;
+
+  static updateMain(page) {
+    if (Helper.currentPage !== page) {
+      if (Helper.currentPage) {
+        Helper.currentPage.remove();
+
+        while (Helper.main.firstChild) {
+          Helper.main.removeChild(Helper.main.firstChild);
+        }
+      }
+
+      Helper.currentPage = page;
+      Helper.currentPage.load();
+    }
+  }
+
   /**
    * The static method to load the database
    * @returns {Object} - The database object
@@ -23,13 +40,9 @@ class Helper {
    * @param {Object} param1
    * @param {Object} param1.attr - The attributes of the element
    * @param {Array} param1.children - The children of the element
-   * @param {Object[]} param1.event - The type and listener of the event
    * @returns {HTMLElement} - The created element
    */
-  static createElement(
-    tag,
-    { attr = null, children = null, event = null } = {},
-  ) {
+  static createElement(tag, { attr = null, children = null } = {}) {
     // Check if the element is already created
     if (!Helper.elements[tag]) {
       // Create the element if it doesn't exist
@@ -55,7 +68,6 @@ class Helper {
             });
           }
         } else {
-          console.log(key, value);
           newEl.setAttribute(key, value);
         }
       });
@@ -68,19 +80,10 @@ class Helper {
       newEl.append(...truthyChildren);
     }
 
-    // Add event to the element
-    if (event) {
-      // Loop through the event Array
-      event.forEach((eObj) => {
-        // Add the event listener to the element
-        if (eObj) newEl.addEventListener(eObj.type, eObj.listener);
-      });
-    }
-
     return newEl;
   }
 }
 
 const _ = Helper.createElement;
 
-export { _, Helper as default };
+export { Helper as default, _ };

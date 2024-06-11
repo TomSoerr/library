@@ -6,7 +6,7 @@
   height: var(--space-xxl);
   width: var(--space-xxl);
   font-family: var(--icon-font);
-  font-size: 3rem;
+  font-size: var(--space-xl);
   line-height: 1;
   color: var(--color-on-surface-variant);
   position: relative;
@@ -15,8 +15,8 @@
 }
 
 .nav-button.background {
-  height: 5.6rem;
-  width: 5.6rem;
+  height: var(--space-xxxl);
+  width: var(--space-xxxl);
   background-color: var(--color-tertiary-container);
   border-radius: 1.6rem;
 }
