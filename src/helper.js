@@ -83,7 +83,7 @@ class Helper {
   static createElement(element, children) {
     // Destructuring emmet style string
     const tag = element.match(/^[a-z\d]+/)[0];
-    const idMatch = element.match(/#([a-z]+)/);
+    const idMatch = element.match(/#([\w-]+)/);
     const id = idMatch ? idMatch[1] : null;
     let classes = element.match(/\.[\w-]+/g) || [];
     let textContent = element.match(/{[^}]+}/);
@@ -140,15 +140,7 @@ class Helper {
     // Add attributes to the element
     if (attr) {
       Object.entries(attr).forEach(([key, value]) => {
-        if (key === 'data') {
-          if (value) {
-            Object.entries(value).forEach(([dataKey, dataValue]) => {
-              newEl.dataset[dataKey] = dataValue;
-            });
-          }
-        } else {
-          newEl.setAttribute(key, value);
-        }
+        newEl.setAttribute(key, value);
       });
     }
 

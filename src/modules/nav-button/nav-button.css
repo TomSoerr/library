@@ -5,13 +5,15 @@
 .nav-button {
   height: var(--space-xxl);
   width: var(--space-xxl);
-  font-family: var(--icon-font);
-  font-size: var(--space-xl);
-  line-height: 1;
   color: var(--color-on-surface-variant);
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+}
+
+.nav-button div {
+  font-size: var(--space-xl);
+  display: block;
 }
 
 .nav-button.background {

@@ -1,11 +1,15 @@
 import './modal.css';
 import Helper, { _ } from '../../helper';
+import iconButton from '../icon-button/iconButton';
 
 const Modal = (() => {
   // Create important element
   const contentArea = _('div.modal-content-area');
 
-  const close = _('button.modal-close', 'x');
+  const close = iconButton({
+    aria: 'Schließen',
+    icon: '\\e5cd',
+  });
 
   close.addEventListener('click', Helper.closeModal);
 

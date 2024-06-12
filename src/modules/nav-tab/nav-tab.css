@@ -8,11 +8,9 @@
 }
 
 .nav-tab div {
-  font-family: var(--icon-font);
   height: var(--space-xl);
   width: var(--space-xxxl);
   font-size: var(--space-l);
-  line-height: 1;
   border-radius: var(--space-ml);
   display: grid;
   place-items: center;

@@ -10,6 +10,7 @@ const input = ({ type, label, value }) => {
 
 const form = ({ data, button }) => {
   const HTMLElement = _('form.book-data', [
+    'Gelesen --- Leseexemplar --- Favorite --- Verliehen --- Reihe',
     input({
       type: 'text',
       label: 'Titel',

@@ -35,6 +35,7 @@
   font-family: "MS";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/material-symbols-rounded-v190-latin-regular.woff2")
-    format("woff2");
+  /* src: url("../fonts/material-symbols-rounded-v190-latin-regular.woff2")
+    format("woff2"); */
+  src: url("../fonts/MSRounded.woff2") format("woff2");
 }

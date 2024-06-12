@@ -8,6 +8,10 @@ const ModalSettings = (() => {
     type: 'tonal',
   });
 
+  importButton.addEventListener('click', () => {
+    ipcRenderer.send('open-file-dialog');
+  });
+
   const exportButton = button({
     text: 'Exportieren',
     type: 'tonal',

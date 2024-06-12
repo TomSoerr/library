@@ -1,4 +1,4 @@
-const { app, Menu, BrowserWindow } = require('electron');
+const { app, Menu, BrowserWindow, dialog, ipcMain } = require('electron');
 const path = require('path');
 const electronReload = require('electron-reload');
 
@@ -9,9 +9,9 @@ electronReload(__dirname, {
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
-    height: 800,
-    minWidth: 500,
-    minHeight: 400,
+    height: 572,
+    minWidth: 540,
+    minHeight: 600,
     icon: path.join(__dirname, 'assets/icon.icns'),
     webPreferences: {
       nodeIntegration: true,
