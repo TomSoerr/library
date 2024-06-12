@@ -1,5 +1,6 @@
 .nav-tab {
   color: var(--color-on-surface-variant);
+  font: var(--font-label-medium);
 }
 
 .nav-tab div::after {
@@ -9,6 +10,26 @@
 .nav-tab div {
   font-family: var(--icon-font);
   height: var(--space-xl);
+  width: var(--space-xxxl);
   font-size: var(--space-l);
   line-height: 1;
+  border-radius: var(--space-ml);
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--space-xs);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-tab.active div {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.nav-tab div:hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 0.05;
 }

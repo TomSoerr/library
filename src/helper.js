@@ -1,15 +1,54 @@
-import data from './sampleData.js';
+import data from './sampleData';
 
 class Helper {
+  /**
+   * Stores the main HTMLElement
+   * @type {HTMLElement}
+   */
   static main = null;
 
+  /**
+   * Stores the modal HTMLElement
+   * @type {HTMLElement}
+   */
+  static modal = null;
+
+  static dialog = null;
+
+  static updateModal(content) {
+    Helper.modal.append(content);
+    Helper.dialog.showModal();
+  }
+
+  /**
+   * Removes Content from the modal
+   * @returns {void}
+   */
+  static closeModal() {
+    if (Helper.modal) {
+      while (Helper.modal.firstChild) {
+        Helper.modal.removeChild(Helper.modal.firstChild);
+      }
+    }
+    Helper.dialog.close();
+  }
+
+  /**
+   * Stores the current page object
+   * @type {Object}
+   */
   static currentPage = null;
 
+  /**
+   * This will update the main element with the page object
+   * @param {Object} page - The page object to load
+   */
   static updateMain(page) {
+    // Prevent loading the same page
     if (Helper.currentPage !== page) {
+      // Check if this is the initial load
       if (Helper.currentPage) {
-        Helper.currentPage.remove();
-
+        // Remove all the children of the main element
         while (Helper.main.firstChild) {
           Helper.main.removeChild(Helper.main.firstChild);
         }
@@ -38,12 +77,12 @@ class Helper {
    * Creates HTML elements from string. The string supports the following
    * features: #id, .className, [attr=value,attr=value], {textContent}
    * @param {String} tag - The HTML tag with emmet support
-   * @param {Array} children - The children of the element
+   * @param {Array|HTMLElement} children - The children of the element
    * @returns {HTMLElement} - The created element
    */
   static createElement(element, children) {
     // Destructuring emmet style string
-    const tag = element.match(/^[a-z]+/)[0];
+    const tag = element.match(/^[a-z\d]+/)[0];
     const idMatch = element.match(/#([a-z]+)/);
     const id = idMatch ? idMatch[1] : null;
     let classes = element.match(/\.[\w-]+/g) || [];
@@ -115,9 +154,13 @@ class Helper {
 
     // Add children to the element
     if (children) {
-      // Filter out the falsy children especially the empty strings
-      const truthyChildren = children.filter((child) => child);
-      newEl.append(...truthyChildren);
+      if (!Array.isArray(children)) {
+        newEl.append(children);
+      } else {
+        // Filter out the falsy children especially the empty strings
+        const truthyChildren = children.filter((child) => child);
+        newEl.append(...truthyChildren);
+      }
     }
 
     return newEl;

@@ -3,28 +3,52 @@ import { _ } from '../../helper';
 import navButton from '../nav-button/navButton';
 import navTab from '../nav-tab/navTab';
 
-const settings = navButton({
-  icon: '\\e8b8',
-  aria: 'Einstellungen',
-  background: false,
-});
+const Nav = (() => {
+  // Buttons that show a modal
+  const settings = navButton({
+    icon: '\\e8b8',
+    aria: 'Einstellungen',
+    background: false,
+  });
 
-const addBook = navButton({
-  icon: '\\e145',
-  aria: 'Buch hinzufügen',
-  background: true,
-});
+  const addBook = navButton({
+    icon: '\\e145',
+    aria: 'Buch hinzufügen',
+    background: true,
+  });
 
-const books = navTab({ icon: '\\f53e', lable: 'Bücher' });
+  // Tabs that display different pages inside the main element
+  const books = navTab({
+    icon: '\\f53e',
+    lable: 'Bücher',
+    title: 'Alle Bücher',
+  });
 
-const stats = navTab({ icon: '\\e4fc', lable: 'Stats' });
+  const stats = navTab({
+    icon: '\\e4fc',
+    lable: 'Stats',
+    title: 'Statistiken',
+  });
 
-const search = navTab({ icon: '\\e8b6', lable: 'Suchen' });
+  const search = navTab({
+    icon: '\\e8b6',
+    lable: 'Suchen',
+    title: 'Buch suchen',
+  });
 
-const Nav = (() =>
-  _('nav#nav', [
-    _('div', [settings, addBook]),
-    _('div', [books, stats, search]),
-  ]))();
+  // Remove active class from all tabs
+  const removeActive = () => {
+    [books, stats, search].forEach((tab) => tab.classList.remove('active'));
+  };
 
-export { Nav as default, settings, addBook, books, stats, search };
+  // HTML Element of the navigation
+  const HTMLElement = (() =>
+    _('nav#nav', [
+      _('div', [settings, addBook]),
+      _('div', [books, stats, search]),
+    ]))();
+
+  return { HTMLElement, removeActive, settings, addBook, books, stats, search };
+})();
+
+export default Nav;

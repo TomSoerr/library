@@ -21,6 +21,26 @@
   --space-xxxl: calc(var(--root-space) * 14); /* 56px */
 
   --nav-width: 8rem;
+
+  --font-display-large: 400 5.7rem / 6.4rem var(--text-font);
+  --font-display-medium: 400 4.5rem / 5.2rem var(--text-font);
+  --font-display-small: 400 3.6rem / 4.4rem var(--text-font);
+
+  --font-headline-large: 400 3.2rem / 4rem var(--text-font);
+  --font-headline-medium: 400 2.8rem / 3.6rem var(--text-font);
+  --font-headline-small: 400 2.4rem / 3.2rem var(--text-font);
+
+  --font-title-large: 400 2.2rem / 2.8rem var(--text-font);
+  --font-title-medium: 500 1.6rem / 2.4rem var(--text-font);
+  --font-title-small: 500 1.4rem / 2rem var(--text-font);
+
+  --font-label-large: 500 1.4rem / 2rem var(--text-font);
+  --font-label-medium: 500 1.2rem / 1.6rem var(--text-font);
+  --font-label-small: 500 1.1rem / 1.6rem var(--text-font);
+
+  --font-body-large: 400 1.6rem / 2.4rem var(--text-font);
+  --font-body-medium: 400 1.4rem / 2rem var(--text-font);
+  --font-body-small: 400 1.2rem / 1.6rem var(--text-font);
 }
 
 body {
@@ -48,6 +68,12 @@ body {
   cursor: pointer;
 }
 
-body {
+.main-wrapper {
   padding-left: var(--nav-width);
+}
+
+main {
+  padding: var(--space-xxxl) var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
 }

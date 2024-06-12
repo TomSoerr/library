@@ -1,17 +1,15 @@
-import { books } from '../modules/nav/nav';
+import Nav from '../modules/nav/nav';
 import Helper from '../helper';
 
 const Books = (() => {
-  const remove = () => {
-    console.log('Book page removed');
-  };
-
   const load = () => {
     Helper.main.append('books');
+    Nav.removeActive();
+    Nav.books.classList.add('active');
   };
 
-  books.addEventListener('click', () => Helper.updateMain(Books));
-  return { load, remove };
+  Nav.books.addEventListener('click', () => Helper.updateMain(Books));
+  return { load };
 })();
 
 export default Books;

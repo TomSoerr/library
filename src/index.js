@@ -1,10 +1,23 @@
-import './index.css';
+import './styles/index.css';
 import Helper, { _ } from './helper';
 import Nav from './modules/nav/nav';
+import Modal from './modules/modal/modal';
+
+// Import the different pages
 import Books from './pages/books';
+import Stats from './pages/stats';
+import Search from './pages/search';
+import ModalSettings from './pages/modalSettings';
+import ModalAddBook from './pages/modalAddBook';
 
-Helper.main = Helper.createElement('main');
+// Create the main element
+Helper.main = _('main');
 
-document.body.append(Nav, Helper.main);
-
+// Set the default page
 Helper.updateMain(Books);
+
+document.body.append(
+  Nav.HTMLElement,
+  _('div.main-wrapper', Helper.main),
+  Modal.HTMLElement,
+);
