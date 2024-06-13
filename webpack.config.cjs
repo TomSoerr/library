@@ -3,17 +3,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    renderer: './src/renderer/index.js',
+  },
+  target: 'web',
   devtool: 'inline-source-map',
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
     clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: "Kiara's Bücher",
-      template: './src/index.html',
+      template: './src/renderer/index.html',
     }),
   ],
   module: {
@@ -27,5 +30,12 @@ module.exports = {
         type: 'asset/resource',
       },
     ],
+  },
+  externals: {
+    electron: 'require("electron")',
+    fs: 'require("fs")',
+    path: 'require("path")',
+    sequelize: 'require("sequelize")',
+    sqlite3: 'require("sqlite3")',
   },
 };

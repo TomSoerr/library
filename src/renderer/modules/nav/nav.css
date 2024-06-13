@@ -1,0 +1,20 @@
+#nav {
+  background-color: var(--color-surface-container-low);
+  height: 100vh;
+  width: var(--nav-width);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-ml);
+  padding: var(--space-xxl) 0;
+}
+
+#nav > div {
+  display: contents;
+}
+
+#nav > div:first-child > :last-child {
+  margin-bottom: var(--space-xl);
+  margin-top: calc(var(--space-s) * -1);
+}

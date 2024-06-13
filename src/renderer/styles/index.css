@@ -1,0 +1,97 @@
+@import url("./fonts.css");
+@import url("./colors.css");
+
+.ms {
+  font-family: "MS";
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+:root {
+  --text-font: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  --icon-font: "MS";
+
+  font-size: 62.5%;
+
+  --root-space: 0.4rem;
+  --space-xxs: calc(var(--root-space) * 0.5); /* 2px */
+  --space-xs: calc(var(--root-space) * 1); /* 4px */
+  --space-s: calc(var(--root-space) * 2); /* 8px */
+  --space-m: calc(var(--root-space) * 3); /* 12px */
+  --space-ml: calc(var(--root-space) * 4); /* 16px */
+  --space-l: calc(var(--root-space) * 6); /* 24px */
+  --space-xl: calc(var(--root-space) * 8); /* 32px */
+  --space-xxl: calc(var(--root-space) * 12); /* 48px */
+  --space-xxxl: calc(var(--root-space) * 14); /* 56px */
+
+  --nav-width: 8rem;
+
+  --font-display-large: 400 5.7rem / 6.4rem var(--text-font);
+  --font-display-medium: 400 4.5rem / 5.2rem var(--text-font);
+  --font-display-small: 400 3.6rem / 4.4rem var(--text-font);
+
+  --font-headline-large: 400 3.2rem / 4rem var(--text-font);
+  --font-headline-medium: 400 2.8rem / 3.6rem var(--text-font);
+  --font-headline-small: 400 2.4rem / 3.2rem var(--text-font);
+
+  --font-title-large: 400 2.2rem / 2.8rem var(--text-font);
+  --font-title-medium: 500 1.6rem / 2.4rem var(--text-font);
+  --font-title-small: 500 1.4rem / 2rem var(--text-font);
+
+  --font-label-large: 500 1.4rem / 2rem var(--text-font);
+  --font-label-medium: 500 1.2rem / 1.6rem var(--text-font);
+  --font-label-small: 500 1.1rem / 1.6rem var(--text-font);
+
+  --font-body-large: 400 1.6rem / 2.4rem var(--text-font);
+  --font-body-medium: 400 1.4rem / 2rem var(--text-font);
+  --font-body-small: 400 1.2rem / 1.6rem var(--text-font);
+}
+
+body {
+  font-family: var(--text-font);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--color-on-surface);
+  background-color: var(--color-surface);
+  margin: 0;
+  padding: 0;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  margin-top: 0;
+  font-weight: 400;
+}
+
+.none {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.main-wrapper {
+  padding-left: var(--nav-width);
+}
+
+main {
+  padding: var(--space-xxxl) var(--space-xl);
+  max-width: 1040px;
+  margin: 0 auto;
+}

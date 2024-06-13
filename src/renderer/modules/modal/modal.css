@@ -1,0 +1,24 @@
+#modal {
+  height: min(80vh, 696px);
+  width: min(60vw, 600px);
+  padding: var(--space-xxxl) var(--space-xl) var(--space-xl);
+
+  border-radius: 2.8rem;
+  background-color: var(--color-surface);
+  border: none;
+  place-items: center;
+  box-shadow:
+    0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 3px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+::backdrop {
+  background-color: black;
+  opacity: 0.2;
+}
+
+#modal .icon-button {
+  position: absolute;
+  top: var(--space-l);
+  right: var(--space-l);
+}

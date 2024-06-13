@@ -1,0 +1,9 @@
+button.button {
+  height: 40px;
+  padding: var(--space-m);
+  border-radius: 30rem;
+}
+
+button.button.tonal {
+  background-color: var(--color-secondary-container);
+}
