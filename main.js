@@ -1,6 +1,9 @@
-const { app, Menu, BrowserWindow, dialog, ipcMain } = require('electron');
+const { app, Menu, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const electronReload = require('electron-reload');
+const { Sequelize, DataTypes } = require('sequelize');
+const remote = require('@electron/remote/main');
+remote.initialize();
 
 electronReload(__dirname, {
   electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),

@@ -21,6 +21,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
   },
   "build": {

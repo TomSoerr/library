@@ -2,6 +2,11 @@ import './table.css';
 import { _ } from '../../helper';
 import iconButton from '../icon-button/iconButton';
 
+/**
+ *
+ * @param {Object[]} tableData - The data for the table in JSON format
+ * @returns
+ */
 const table = (tableData) => {
   const rowTemplate = (data) =>
     _(`tr[data-id="${data.id}"]`, [

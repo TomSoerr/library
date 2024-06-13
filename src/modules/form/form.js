@@ -1,6 +1,14 @@
 import './form.css';
 import { _ } from '../../helper';
 
+/**
+ *
+ * @param {Object} param0
+ * @param {string} param0.type - The type of the input field
+ * @param {string} param0.label - The label for the input field
+ * @param {string} param0.value - The value of the input field
+ * @returns
+ */
 const input = ({ type, label, value }) => {
   return _(
     `label{${label}}`,
@@ -8,6 +16,13 @@ const input = ({ type, label, value }) => {
   );
 };
 
+/**
+ *
+ * @param {*} param0
+ * @param {Object} param0.data - The data for the form fields
+ * @param {Object} param0.button - The button for the form submission
+ * @returns {HTMLElement}
+ */
 const form = ({ data, button }) => {
   const HTMLElement = _('form.book-data', [
     'Gelesen --- Leseexemplar --- Favorite --- Verliehen --- Reihe',
