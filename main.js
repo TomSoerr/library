@@ -6,6 +6,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const remote = require('@electron/remote/main');
 
 // _______________________
+// Search project for production comments and remove the following lines
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -122,7 +123,7 @@ const Library = sequelize.define('Library', {
     allowNull: false,
   },
   beendet_am: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   isbn: {
@@ -149,6 +150,10 @@ const Library = sequelize.define('Library', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
+  verliehen: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
   verliehen_an: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -165,9 +170,9 @@ app.on('ready', async () => {
 });
 
 // Handle IPC requests
-ipcMain.handle('fetch-data', async (event, key) => {
-  const data = await Library.findOne({ where: { key } });
-  return data ? data.value : null;
+ipcMain.handle('fetch-data', async (event, id) => {
+  const data = await Library.findOne({ where: { id } });
+  return data ? data.dataValues : null;
 });
 
 ipcMain.handle('fetch-all-data', async () => {
@@ -175,16 +180,54 @@ ipcMain.handle('fetch-all-data', async () => {
   return data;
 });
 
-ipcMain.handle('save-data', async (event, key, value) => {
-  const [data, created] = await Library.findOrCreate({
-    where: { key },
-    defaults: { value },
-  });
-  if (!created) {
-    data.value = value;
-    await data.save();
+ipcMain.handle('save-data', async (event, id, value) => {
+  // clean up the data
+  const cleanData = Object.entries(value).reduce((acc, [key, value]) => {
+    switch (key) {
+      case 'gelesen':
+      case 'ist_reihe':
+      case 'favorit':
+      case 'leseexemplar':
+      case 'verliehen':
+        acc[key] = Boolean(value);
+        break;
+      case 'spice':
+      case 'bewertung':
+        acc[key] = Number(value);
+        break;
+      case 'band':
+        acc[key] = value ? Number(value) : null;
+        break;
+      default:
+        acc[key] = value;
+    }
+
+    return acc;
+  }, {});
+
+  if (id !== undefined) {
+    const idNumber = Number(id);
+    // Update the existing entry with the id
+    await Library.update(cleanData, {
+      where: { id: idNumber },
+    });
+  } else {
+    // Create a new entry
+    await Library.create(cleanData);
   }
-  return data;
+});
+
+ipcMain.handle('delete-data', async (event, id) => {
+  const idNumber = Number(id);
+  const { response } = await dialog.showMessageBox({
+    message: 'Möchtest du diesen Eintrag wirklich löschen?',
+    type: 'warning',
+    buttons: ['Ja', 'Nein'],
+  });
+  if (response === 0) {
+    console.log('Deleting data');
+    await Library.destroy({ where: { id: idNumber } });
+  }
 });
 
 ipcMain.handle('import-database', async (event) => {

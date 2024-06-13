@@ -78,6 +78,32 @@ class Helper {
     Helper.dataChangeFns.forEach((fn) => fn());
   }
 
+  static async saveOrCreate(e) {
+    e.preventDefault();
+    const formEl = e.target.closest('form');
+    if (formEl.checkValidity() === false) {
+      formEl.reportValidity();
+      return;
+    }
+    const formData = new FormData();
+
+    Array.from(formEl.elements).forEach((element) => {
+      if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        if (element.type === 'checkbox') {
+          formData.append(element.name, element.checked ? 'on' : '');
+        } else if (element.value) {
+          formData.append(element.name, element.value);
+        }
+      }
+    });
+
+    const data = Object.fromEntries(formData.entries());
+    await window.electron.saveData(formEl.dataset.id, data);
+
+    Helper.callDataChangeFn();
+    Helper.closeModal();
+  }
+
   /**
    * The static elements object to store the created elements
    * @type {Object}

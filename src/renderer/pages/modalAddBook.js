@@ -10,12 +10,13 @@ const ModalAddBook = (() => {
     icon: '\\e145',
   });
 
+  add.addEventListener('click', Helper.saveOrCreate);
+
   const emptyForm = form({ data: null, button: add });
 
   const HTMLElement = _('div.modal-content', [
     _('h2', 'Buch hinzufügen'),
     emptyForm,
-    add,
   ]);
 
   Nav.addBook.addEventListener('click', () => Helper.updateModal(HTMLElement));

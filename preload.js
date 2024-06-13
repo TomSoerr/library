@@ -1,14 +1,15 @@
 const { contextBridge, ipcRenderer, webFrame } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
-  fetchData: (key) => ipcRenderer.invoke('fetch-data', key),
+  fetchData: (id) => ipcRenderer.invoke('fetch-data', id),
   fetchAllData: () => ipcRenderer.invoke('fetch-all-data'),
-  saveData: (key, value) => ipcRenderer.invoke('save-data', key, value),
+  saveData: (id, value) => ipcRenderer.invoke('save-data', id, value),
+  deleteData: (id) => ipcRenderer.invoke('delete-data', id),
   setZoomFactor: (factor) => webFrame.setZoomFactor(factor),
   setVisualZoomLevelLimits: (min, max) =>
     webFrame.setVisualZoomLevelLimits(min, max),
+  // Remove import for production
   importDatabase: () => ipcRenderer.invoke('import-database'),
   exportDatabase: () => ipcRenderer.invoke('export-database'),
   deleteDatabase: () => ipcRenderer.invoke('delete-database'),
-  // showOpenDialog: (options) => console.log(options),
 });

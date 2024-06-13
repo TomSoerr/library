@@ -2,8 +2,14 @@ button.button {
   height: 40px;
   padding: var(--space-m);
   border-radius: 30rem;
+  font: var(--font-label-large);
 }
 
 button.button.tonal {
   background-color: var(--color-secondary-container);
+}
+
+button.button.filled {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
