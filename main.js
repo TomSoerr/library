@@ -1,9 +1,16 @@
 const { app, Menu, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const electronReload = require('electron-reload');
+
+if (process.env.NODE_ENV === 'development') {
+  const electronReload = require('electron-reload');
+
+  electronReload(__dirname, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+  });
+}
+
 const { Sequelize, DataTypes } = require('sequelize');
-const remote = require('@electron/remote/main');
 
 // _______________________
 // Search project for production comments and remove the following lines
@@ -26,7 +33,9 @@ function createWindow() {
       // devTools: false,
     },
   });
-  win.loadFile('dist/index.html');
+
+  win.loadFile(path.join(__dirname, 'dist/index.html'));
+
   win.webContents.setVisualZoomLevelLimits(1, 1);
 
   // Remove before production
@@ -78,12 +87,6 @@ app.on('activate', () => {
 });
 
 // _______________________
-
-remote.initialize();
-
-electronReload(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-});
 
 // Initialize SQLite database
 const sequelize = new Sequelize({
