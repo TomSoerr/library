@@ -110,12 +110,14 @@
   text-align: center;
 }
 
+/* Gelesen dann geschlossen */
+
 #books td[data-gelesen="true"]::before {
-  content: "\e0e0";
+  content: "\f53e";
 }
 
 #books td[data-gelesen="false"]::before {
-  content: "\f53e";
+  content: "\e0e0";
 }
 
 #books td.spice,

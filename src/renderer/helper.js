@@ -124,7 +124,7 @@ class Helper {
     const id = idMatch ? idMatch[1] : null;
     let classes = element.match(/\.[\w-]+/g) || [];
     let textContent = element.match(/{[^}]+}/);
-    let attr = element.match(/\[[^\]]+\]/);
+    let attr = element.match(/\[.+\]/);
 
     // Replace the . before the class name
     if (classes) {
@@ -138,11 +138,12 @@ class Helper {
 
     // Convert the attributes to an object
     if (attr) {
-      // Remove the square brackets
-      attr = attr[0].replace(/\[|\]/g, '');
+      // Remove first and last character
+      attr = attr[0].slice(1, -1);
       // Split the attributes by comma
-      attr = attr.split(',').reduce((acc, cur) => {
-        const [key, value] = cur.split('=');
+      attr = attr.split('::').reduce((acc, cur) => {
+        // split first at the first = sign
+        const [key, value] = cur.split(/=(.+)/);
         acc[key] = value.slice(1, -1);
         return acc;
       }, {});

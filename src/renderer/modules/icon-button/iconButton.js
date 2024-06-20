@@ -7,6 +7,6 @@ import { _ } from '../../helper';
  * @returns {HTMLElement} - The created icon button
  */
 export default ({ icon, aria }) =>
-  _(`button.icon-button.none[title="${aria}",aria-label="${aria}"]`, [
+  _(`button.icon-button.none[title="${aria}"::aria-label="${aria}"]`, [
     _(`div.ms[style="--icon: '${icon}';"]`),
   ]);

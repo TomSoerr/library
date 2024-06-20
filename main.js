@@ -29,8 +29,7 @@ function createWindow() {
       sandbox: true,
       disableBlinkFeatures: 'Eval',
       webviewTag: false,
-      // Add before production
-      // devTools: false,
+      devTools: process.env.NODE_ENV === 'development',
     },
   });
 
@@ -39,7 +38,9 @@ function createWindow() {
   win.webContents.setVisualZoomLevelLimits(1, 1);
 
   // Remove before production
-  win.webContents.openDevTools();
+  if (process.env.NODE_ENV === 'development') {
+    win.webContents.openDevTools();
+  }
 
   const menu = Menu.buildFromTemplate([
     {
@@ -61,7 +62,6 @@ function createWindow() {
       submenu: [
         { role: 'resetZoom' },
         { role: 'togglefullscreen' },
-        // Remove before production
         { role: 'toggleDevTools' },
       ],
     },

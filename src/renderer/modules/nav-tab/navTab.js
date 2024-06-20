@@ -9,6 +9,6 @@ import { _ } from '../../helper';
  */
 export default ({ icon, lable, title }) =>
   _('button.nav-tab.none', [
-    _(`div.ms[style="--icon: '${icon}';",title="${title}"]`),
+    _(`div.ms[style="--icon: '${icon}';"::title="${title}"]`),
     _(`span{${lable}}`),
   ]);

@@ -19,6 +19,7 @@ const Table = (() => {
     const saveButton = button({
       text: 'Speichern',
       type: 'filled',
+      icon: '\\e161',
     });
 
     saveButton.addEventListener('click', (e) => {
@@ -28,6 +29,7 @@ const Table = (() => {
     const deleteButton = button({
       text: 'Löschen',
       type: 'tonal',
+      icon: '\\e92b',
     });
 
     deleteButton.addEventListener('click', async (e) => {
@@ -46,10 +48,13 @@ const Table = (() => {
         const rowData = await window.electron.fetchData(id);
         if (rowData) {
           Helper.updateModal(
-            form({
-              data: rowData,
-              button: _('div', [deleteButton, saveButton]),
-            }),
+            _('div.modal-content', [
+              _('h2', 'Buch bearbeiten'),
+              form({
+                data: rowData,
+                button: [deleteButton, saveButton],
+              }),
+            ]),
           );
         }
       }

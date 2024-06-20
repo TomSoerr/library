@@ -1,7 +1,16 @@
 @import url("./fonts.css");
 @import url("./colors.css");
 
-.ms {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+.ms,
+.ms-within::before,
+.ms-within::after {
   font-family: "MS";
   font-weight: normal;
   font-style: normal;

@@ -1,8 +1,25 @@
 button.button {
   height: 40px;
-  padding: var(--space-m);
+  padding: var(--space-m) var(--space-l);
   border-radius: 30rem;
   font: var(--font-label-large);
+  line-height: 1;
+  width: max-content;
+  text-wrap: nowrap;
+  position: relative;
+}
+
+button.button.icon {
+  padding-left: calc(var(--space-xl) * 1.2);
+}
+
+button.button.icon::before {
+  position: absolute;
+  left: var(--space-ml);
+  top: 50%;
+  transform: translateY(-50%);
+  content: var(--icon);
+  font-size: 1.8rem;
 }
 
 button.button.tonal {

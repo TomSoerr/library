@@ -11,7 +11,7 @@ import { _ } from '../../helper';
  */
 const button = ({ text, type, icon = null } = {}) =>
   _(
-    `button.button.none${type ? `.${type}` : ''}${icon ? `.icon[style="--icon: '${icon}';"]` : ''}`,
+    `button.button.none.ms-within${type ? `.${type}` : ''}${icon ? `.icon[style="--icon: '${icon}';"]` : ''}`,
     text,
   );
 
