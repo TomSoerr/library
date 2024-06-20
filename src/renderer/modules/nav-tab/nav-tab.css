@@ -1,6 +1,7 @@
 .nav-tab {
   color: var(--color-on-surface-variant);
   font: var(--font-label-medium);
+  user-select: none;
 }
 
 .nav-tab div::after {
@@ -24,10 +25,15 @@
   color: var(--color-on-secondary-container);
 }
 
-.nav-tab div:hover::before {
+.nav-tab div::before {
   content: "";
   position: absolute;
   inset: 0;
   background-color: black;
+  transition: opacity var(--transition);
+  opacity: 0;
+}
+
+.nav-tab:where(:hover, :focus-visible) div::before {
   opacity: 0.05;
 }

@@ -178,9 +178,61 @@ ipcMain.handle('fetch-data', async (event, id) => {
   return data ? data.dataValues : null;
 });
 
-ipcMain.handle('fetch-all-data', async () => {
-  const data = await Library.findAll();
-  return data;
+ipcMain.handle('fetch-all-data', async (event, filter, order) => {
+  const filterData = (data) => {
+    if (!data) return [];
+    const dataValues = data.map((item) => item.dataValues);
+    return dataValues;
+  };
+
+  let data;
+
+  const sortData = (arr) => {
+    switch (order) {
+      case 'tit':
+        arr.sort((a, b) => a.titel.localeCompare(b.titel));
+        break;
+      case 'gen':
+        arr.sort((a, b) => a.genre.localeCompare(b.genre));
+        break;
+      case 'spi-d':
+        arr.sort((a, b) => b.spice - a.spice);
+        break;
+      case 'spi-i':
+        arr.sort((a, b) => a.spice - b.spice);
+        break;
+      case 'bew-d':
+        arr.sort((a, b) => b.bewertung - a.bewertung);
+        break;
+      case 'bew-i':
+        arr.sort((a, b) => a.bewertung - b.bewertung);
+        break;
+      default:
+        arr.sort((a, b) => {
+          const aLastName = a.autor.split(' ').pop();
+          const bLastName = b.autor.split(' ').pop();
+
+          return aLastName.localeCompare(bLastName);
+        });
+    }
+    return arr;
+  };
+
+  if (filter === 'gel') {
+    data = await Library.findAll({ where: { gelesen: true } });
+  } else if (filter === 'ung') {
+    data = await Library.findAll({ where: { gelesen: false } });
+  } else if (filter === 'fav') {
+    data = await Library.findAll({ where: { favorit: true } });
+  } else if (filter === 'exp') {
+    data = await Library.findAll({ where: { leseexemplar: true } });
+  } else if (filter === 'ver') {
+    data = await Library.findAll({ where: { verliehen: true } });
+  } else {
+    data = await Library.findAll();
+  }
+
+  return sortData(filterData(data));
 });
 
 ipcMain.handle('save-data', async (event, id, value) => {

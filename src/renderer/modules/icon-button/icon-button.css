@@ -15,10 +15,15 @@
   display: block;
 }
 
-.icon-button:hover::after {
+.icon-button::after {
   content: "";
   position: absolute;
   inset: 0;
   background-color: black;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.icon-button:where(:hover, :focus-visible)::after {
   opacity: 0.05;
 }

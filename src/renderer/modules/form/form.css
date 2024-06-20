@@ -8,6 +8,15 @@
   flex: 1;
 }
 
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: var(--space-s);
+  justify-content: start;
+  margin-bottom: var(--space-s);
+}
+
 form.book-data {
   display: flex;
   flex-direction: column;

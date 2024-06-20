@@ -25,5 +25,3 @@ document.body.append(
   _('div.main-wrapper', Helper.main),
   Modal.HTMLElement,
 );
-
-Nav.addBook.click();

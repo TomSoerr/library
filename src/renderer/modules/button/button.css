@@ -7,6 +7,8 @@ button.button {
   width: max-content;
   text-wrap: nowrap;
   position: relative;
+  user-select: none;
+  overflow: hidden;
 }
 
 button.button.icon {
@@ -22,6 +24,19 @@ button.button.icon::before {
   font-size: 1.8rem;
 }
 
+button.button::after {
+  transition: opacity var(--transition);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 0;
+}
+
+button.button:where(:hover, :focus-visible)::after {
+  opacity: 0.05;
+}
+
 button.button.tonal {
   background-color: var(--color-secondary-container);
 }
@@ -29,4 +44,12 @@ button.button.tonal {
 button.button.filled {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
+}
+
+button.button.filled::after {
+  background-color: white;
+}
+
+button.button.filled:where(:hover, :focus)::after {
+  opacity: 0.15;
 }

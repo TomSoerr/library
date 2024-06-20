@@ -1,0 +1,48 @@
+.chip {
+  border: 1px solid var(--color-outline);
+  border-radius: var(--space-s);
+  font: var(--font-label-large);
+  color: var(--color-on-surface-variant);
+  padding: var(--space-xs) var(--space-ml);
+  width: max-content;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.chip input::before {
+  content: var(--icon);
+  font-size: var(--space-ml);
+  color: var(--color-on-surface-variant);
+  margin-right: var(--space-xs);
+  margin-left: calc(-1 * var(--space-xs));
+  vertical-align: -3px;
+}
+
+.chip input[type="checkbox"]:checked::before {
+  --icon: "\e5ca";
+}
+
+.chip input[type="radio"]:checked::before {
+  --icon: "\ef4f";
+}
+
+.chip:has(input:checked) {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  border-color: var(--color-surface);
+}
+
+.chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.chip:hover::after,
+.chip:has(input:focus-visible)::after {
+  opacity: 0.05;
+}

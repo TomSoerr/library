@@ -9,6 +9,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+  user-select: none;
 }
 
 .nav-button div {
@@ -23,14 +24,15 @@
   border-radius: 1.6rem;
 }
 
-.nav-button:hover::after {
+.nav-button::after {
+  transition: opacity var(--transition);
   content: "";
   position: absolute;
   inset: 0;
   background-color: black;
-  opacity: 0.05;
+  opacity: 0;
 }
 
-.nav-button.background:hover::after {
-  background-color: black;
+.nav-button:where(:hover, :focus-visible)::after {
+  opacity: 0.05;
 }

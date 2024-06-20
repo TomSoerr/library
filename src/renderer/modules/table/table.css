@@ -104,13 +104,36 @@
   font: var(--font-body-medium);
 }
 
+#books th:not(:first-child) {
+  user-select: none;
+  cursor: pointer;
+}
+
+#books th:not(:first-child):focus-visible {
+  color: var(--color-outline);
+  outline: none;
+}
+#books th:not(:last-child, :first-child)::after {
+  content: "\e5c5";
+  font-size: var(--space-xl);
+  vertical-align: -10px;
+  transition: opacity var(--transition);
+  opacity: 0;
+}
+
+#books th[class*="active"]::after {
+  opacity: 1;
+}
+
+#books th:last-child .icon-button div {
+  color: var(--color-on-surface);
+}
+
 #books td[data-gelesen] {
   font-size: 2.6rem;
   line-height: 1;
   text-align: center;
 }
-
-/* Gelesen dann geschlossen */
 
 #books td[data-gelesen="true"]::before {
   content: "\f53e";

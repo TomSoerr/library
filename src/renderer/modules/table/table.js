@@ -110,25 +110,39 @@ const Table = (() => {
     });
   };
 
+  const titel = _(
+    'th.ms-within[title="Nach Titel sortieren"::tabindex="0"::role="button"]',
+    'Titel',
+  );
+  const genre = _(
+    'th.ms-within[title="Nach Genre sortieren"::tabindex="0"::role="button"]',
+    'Genre',
+  );
+  const spice = _(
+    'th.ms-within[title="Nach Spice sortieren"::tabindex="0"::role="button"]',
+    'Spice',
+  );
+  const bewertung = _(
+    'th.ms-within[title="Nach Bewertung sortieren"::tabindex="0"::role="button"]',
+    'Bewertung',
+  );
+  const filter = _(
+    'th.ms-within',
+    iconButton({
+      aria: 'Sortierung aufheben',
+      icon: '\\eb32',
+    }),
+  );
+
   const HTMLElement = _(
     'div#books-wrapper',
     _('table#books', [
-      _(
-        'thead',
-        _('tr', [
-          _('th'),
-          _('th', 'Titel'),
-          _('th', 'Genre'),
-          _('th', 'Spice'),
-          _('th', 'Bewertung'),
-          _('th'),
-        ]),
-      ),
+      _('thead', _('tr', [_('th'), titel, genre, spice, bewertung, filter])),
       tableBody,
     ]),
   );
 
-  return { HTMLElement, loadTable };
+  return { HTMLElement, loadTable, titel, genre, spice, bewertung, filter };
 })();
 
 export default Table;

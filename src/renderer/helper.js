@@ -59,13 +59,13 @@ class Helper {
 
   /**
    * The static method to load the database
+   * @param {("def"|"fav"|"exp"|"ver"|"ung"|"gel")} filter
+   * @param {("def"|"tit"|"gen"|"spi-d"|"spi-i"|"bew-d"|"bew-i")} order
    * @returns {Object} - The database object
    */
-  static async loadDatabase() {
-    const rawData = await window.electron.fetchAllData();
-    if (!rawData) return [];
-    const dataValues = rawData.map((item) => item.dataValues);
-    return dataValues;
+  static async loadDatabase(filter, order) {
+    const data = await window.electron.fetchAllData(filter, order);
+    return data;
   }
 
   static dataChangeFns = [];
@@ -74,8 +74,8 @@ class Helper {
     Helper.dataChangeFns.push(fn);
   }
 
-  static callDataChangeFn() {
-    Helper.dataChangeFns.forEach((fn) => fn());
+  static callDataChangeFn(order) {
+    Helper.dataChangeFns.forEach((fn) => fn(order));
   }
 
   static async saveOrCreate(e) {

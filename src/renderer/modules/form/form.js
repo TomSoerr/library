@@ -1,5 +1,6 @@
 import './form.css';
 import { _ } from '../../helper';
+import chip from '../chip/chip';
 
 /**
  *
@@ -9,18 +10,16 @@ import { _ } from '../../helper';
  * @param {string} param0.value - The value of the input field
  * @returns
  */
-const input = ({ type, label, value, name, required, checked, attr = '' }) => {
+const input = ({ type, label, value, name, required, attr = '' }) => {
   const attributes = String.prototype.concat(
     `type="${type}"`,
     `::name="${name}"`,
-    `::id="${name}"`,
     '::placeholder=" "',
     `${required ? '::required=""' : ''}`,
-    `${checked ? '::checked=""' : ''}`,
     `${attr}`,
   );
   if (type === 'textarea') {
-    const textareaEL = _(`textarea.none[name="${name}"${attr}]`);
+    const textareaEL = _(`textarea.none#${name}[name="${name}"${attr}]`);
     if (value) {
       textareaEL.textContent = value;
     }
@@ -51,36 +50,41 @@ const form = ({ data, button }) => {
   const HTMLElement = _(
     `form.book-data${data ? `[data-id="${data.id}"]` : ''}`,
     [
-      _('div.form-row', [
-        input({
+      _('div.chips-row', [
+        chip({
           type: 'checkbox',
           label: 'Gelesen',
           name: 'gelesen',
           checked: data ? data.gelesen : false,
+          icon: '\\f53e',
         }),
-        input({
+        chip({
           type: 'checkbox',
           label: 'Favorit',
           name: 'favorit',
           checked: data ? data.favorit : false,
+          icon: '\\e87d',
         }),
-        input({
+        chip({
           type: 'checkbox',
           label: 'Leseexemplar',
           name: 'leseexemplar',
           checked: data ? data.leseexemplar : false,
+          icon: '\\e8b1',
         }),
-        input({
+        chip({
           type: 'checkbox',
-          label: 'Ist Reihe',
+          label: 'Reihe',
           name: 'ist_reihe',
           checked: data ? data.ist_reihe : false,
+          icon: '\\e02e',
         }),
-        input({
+        chip({
           type: 'checkbox',
           label: 'Verliehen',
           name: 'verliehen',
           checked: data ? data.verliehen : false,
+          icon: '\\e7fd',
         }),
       ]),
       input({

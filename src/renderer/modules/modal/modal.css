@@ -32,11 +32,27 @@
   height: 100%;
   overflow-y: scroll;
   padding: var(--space-xxl) var(--space-xl) var(--space-xl);
-  scrollbar-color: var(--color-outline) var(--color-surface);
+  scrollbar-width: none;
 }
 
 #modal .button-row {
   margin-left: auto;
   gap: var(--space-s);
   display: flex;
+  margin-top: var(--space-m);
+}
+#modal *:has(+ h3) {
+  margin-bottom: var(--space-l);
+}
+
+#modal h2 {
+  margin-bottom: var(--space-m);
+}
+
+#modal h3 {
+  margin-bottom: var(--space-s);
+}
+
+#modal p {
+  margin: 0;
 }
