@@ -45,7 +45,7 @@ const Nav = (() => {
   const HTMLElement = (() =>
     _('nav#nav', [
       _('div', [settings, addBook]),
-      _('div', [books, stats, search]),
+      _('div', [books, search, stats]),
     ]))();
 
   return { HTMLElement, removeActive, settings, addBook, books, stats, search };

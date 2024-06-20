@@ -84,7 +84,6 @@ body {
 
 :where(h1, h2, h3, h4, h5, h6) {
   margin-top: 0;
-  font-weight: 400;
 }
 
 .none {
@@ -105,4 +104,16 @@ main {
   padding: var(--space-xxxl) var(--space-xl);
   max-width: 1040px;
   margin: 0 auto;
+}
+
+h1 {
+  font: var(--font-headline-large);
+}
+
+h2 {
+  font: var(--font-headline-medium);
+}
+
+h3 {
+  font: var(--font-headline-small);
 }

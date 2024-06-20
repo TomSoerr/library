@@ -72,6 +72,7 @@ const Books = (() => {
   const load = () => {
     // Add table to the main element and load with default data
     Helper.main.append(
+      _('h1', 'Kiaras Bücherwelt'),
       _('form.table-controls', [
         _('div.chips-row', [
           allBooksChip,

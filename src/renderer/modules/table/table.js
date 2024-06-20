@@ -130,7 +130,7 @@ const Table = (() => {
     'th.ms-within',
     iconButton({
       aria: 'Sortierung aufheben',
-      icon: '\\eb32',
+      icon: '\\e152',
     }),
   );
 
