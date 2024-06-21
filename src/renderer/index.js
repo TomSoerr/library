@@ -6,7 +6,6 @@ import Modal from './modules/modal/modal';
 // Import the different pages
 import Books from './pages/books';
 import Stats from './pages/stats';
-import Search from './pages/search';
 import ModalSettings from './pages/modalSettings';
 import ModalAddBook from './pages/modalAddBook';
 

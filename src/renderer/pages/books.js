@@ -2,6 +2,7 @@ import Helper, { _ } from '../helper';
 import Nav from '../modules/nav/nav';
 import Table from '../modules/table/table';
 import chip from '../modules/chip/chip';
+import searchChip from '../modules/search/search';
 
 const Books = (() => {
   const allBooksChip = chip({
@@ -62,9 +63,6 @@ const Books = (() => {
       currentFilter = filter;
     }
 
-    console.log('filter: ', currentFilter);
-    console.log('order: ', currentOrder);
-
     const data = await Helper.loadDatabase(currentFilter, currentOrder);
     Table.loadTable(data);
   };
@@ -81,6 +79,7 @@ const Books = (() => {
           favoritChip,
           leseexemplarChip,
           verliehenChip,
+          searchChip.HTMLElement,
         ]),
       ]),
       Table.HTMLElement,
@@ -104,6 +103,29 @@ const Books = (() => {
   favoritChip.addEventListener('change', () => loadTable('fav'));
   leseexemplarChip.addEventListener('change', () => loadTable('exp'));
   verliehenChip.addEventListener('change', () => loadTable('ver'));
+
+  searchChip.button.addEventListener('change', () => {
+    loadTable(searchChip.input.value);
+    if (searchChip.button.checked === false) {
+      searchChip.button.checked = true;
+    }
+  });
+
+  searchChip.button.addEventListener('click', () => {
+    if (searchChip.button.checked === true) {
+      searchChip.button.dispatchEvent(new Event('change'));
+    }
+  });
+
+  searchChip.input.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      // prevent the form from submitting
+      // otherwise the page will reload
+      event.preventDefault();
+
+      searchChip.button.dispatchEvent(new Event('change'));
+    }
+  });
 
   const callback = (e, order) => {
     removeAllActive();

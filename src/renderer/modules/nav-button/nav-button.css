@@ -10,6 +10,9 @@
   overflow: hidden;
   border-radius: 50%;
   user-select: none;
+  transition: all var(--transition);
+  --current-color: transparent;
+  background-color: var(--current-color);
 }
 
 .nav-button div {
@@ -20,19 +23,10 @@
 .nav-button.background {
   height: var(--space-xxxl);
   width: var(--space-xxxl);
-  background-color: var(--color-tertiary-container);
+  --current-color: var(--color-tertiary-container);
   border-radius: 1.6rem;
 }
 
-.nav-button::after {
-  transition: opacity var(--transition);
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: black;
-  opacity: 0;
-}
-
-.nav-button:where(:hover, :focus-visible)::after {
-  opacity: 0.05;
+.nav-button:where(:hover, :focus-visible) {
+  background-color: color-mix(in srgb, var(--current-color) 100%, black 5%);
 }

@@ -68,7 +68,9 @@
   --font-body-medium: 400 1.4rem / 2rem var(--text-font);
   --font-body-small: 400 1.2rem / 1.6rem var(--text-font);
 
-  --transition: 0.2s ease-in-out;
+  --transition: 0.1s ease-in;
+  --color-mix: in srgb, var(--current-color) 100%, black 5%;
+
   scrollbar-color: var(--color-secondary-container) transparent;
 }
 

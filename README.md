@@ -7,3 +7,9 @@ at `src/renderer/fonts`
 - roboto-v30-latin-500italic.woff2
 - roboto-v30-latin-italic.woff2
 - roboto-v30-latin-regular.woff2
+
+
+# todo
+
+- Spice and Bewertung in- and decreasing order
+- Delete verliehen_an when verliehen is false

@@ -8,6 +8,12 @@
   user-select: none;
   position: relative;
   overflow: hidden;
+  height: var(--space-xl);
+  display: flex;
+  align-items: center;
+  --current-color: var(--color-surface);
+  background-color: var(--current-color);
+  transition: all var(--transition);
 }
 
 .chip input::before {
@@ -28,21 +34,12 @@
 }
 
 .chip:has(input:checked) {
-  background-color: var(--color-secondary-container);
+  --current-color: var(--color-secondary-container);
   color: var(--color-on-secondary-container);
   border-color: var(--color-surface);
 }
 
-.chip::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: black;
-  opacity: 0;
-  transition: all 0.2s;
-}
-
-.chip:hover::after,
-.chip:has(input:focus-visible)::after {
-  opacity: 0.05;
+.chip:hover,
+.chip:has(input:focus-visible) {
+  background-color: color-mix(in srgb, var(--current-color) 100%, black 5%);
 }

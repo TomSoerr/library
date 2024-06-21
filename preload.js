@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('electron', {
   setZoomFactor: (factor) => webFrame.setZoomFactor(factor),
   setVisualZoomLevelLimits: (min, max) =>
     webFrame.setVisualZoomLevelLimits(min, max),
+
   // Remove import for production
   importDatabase: () => ipcRenderer.invoke('import-database'),
   exportDatabase: () => ipcRenderer.invoke('export-database'),

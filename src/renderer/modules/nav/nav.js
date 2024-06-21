@@ -30,25 +30,16 @@ const Nav = (() => {
     title: 'Statistiken',
   });
 
-  const search = navTab({
-    icon: '\\e8b6',
-    lable: 'Suchen',
-    title: 'Buch suchen',
-  });
-
   // Remove active class from all tabs
   const removeActive = () => {
-    [books, stats, search].forEach((tab) => tab.classList.remove('active'));
+    [books, stats].forEach((tab) => tab.classList.remove('active'));
   };
 
   // HTML Element of the navigation
   const HTMLElement = (() =>
-    _('nav#nav', [
-      _('div', [settings, addBook]),
-      _('div', [books, search, stats]),
-    ]))();
+    _('nav#nav', [_('div', [settings, addBook]), _('div', [books, stats])]))();
 
-  return { HTMLElement, removeActive, settings, addBook, books, stats, search };
+  return { HTMLElement, removeActive, settings, addBook, books, stats };
 })();
 
 export default Nav;

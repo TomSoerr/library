@@ -1,0 +1,56 @@
+.search-chip {
+  border: 1px solid var(--color-outline);
+  border-radius: var(--space-s);
+  padding: var(--space-xs) var(--space-ml);
+  width: max-content;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  height: var(--space-xl);
+  --current-color: var(--color-surface);
+  background-color: var(--current-color);
+  transition: all var(--transition);
+}
+
+.search-chip:hover {
+  background-color: color-mix(in srgb, var(--current-color) 100%, black 5%);
+}
+
+.search-chip:has(input[type="radio"]:checked) {
+  --current-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  border-color: var(--color-surface);
+}
+
+.search-chip > * {
+  display: block;
+}
+
+/* Text input */
+.search-chip input[type="text"] {
+  font: var(--font-label-large);
+  color: var(--color-on-surface-variant);
+  line-height: 1;
+  width: 20ch;
+}
+
+.search-chip input[type="text"]::placeholder {
+  color: var(--color-outline);
+}
+
+.search-chi:has(> :checked) input[type="text"] {
+  color: var(--color-on-secondary-container);
+}
+
+/* Radio input */
+.search-chip input[type="radio"] {
+  display: flex;
+}
+
+.search-chip input[type="radio"]::after {
+  content: "\e8b6";
+  font-size: var(--space-ml);
+
+  transform: translateY(3px);
+}

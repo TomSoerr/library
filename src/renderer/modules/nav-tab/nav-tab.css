@@ -18,22 +18,16 @@
   margin-bottom: var(--space-xs);
   position: relative;
   overflow: hidden;
+  --current-color: transparent;
+  background-color: var(--current-color);
+  transition: all var(--transition);
 }
 
 .nav-tab.active div {
-  background-color: var(--color-secondary-container);
+  --current-color: var(--color-secondary-container);
   color: var(--color-on-secondary-container);
 }
 
-.nav-tab div::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: black;
-  transition: opacity var(--transition);
-  opacity: 0;
-}
-
-.nav-tab:where(:hover, :focus-visible) div::before {
-  opacity: 0.05;
+.nav-tab:where(:hover, :focus-visible) div {
+  background-color: color-mix(in srgb, var(--current-color) 100%, black 5%);
 }
