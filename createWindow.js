@@ -3,7 +3,7 @@ const path = require('path');
 
 const browserWindowOptions = {
   width: 1280,
-  height: 572,
+  height: 800,
   minWidth: 540,
   minHeight: 600,
   icon: path.join(__dirname, '../assets/icon.icns'),

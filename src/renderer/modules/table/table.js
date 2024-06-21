@@ -20,6 +20,7 @@ const Table = (() => {
       text: 'Speichern',
       type: 'filled',
       icon: '\\e161',
+      submit: true,
     });
 
     saveButton.addEventListener('click', (e) => {
@@ -36,9 +37,11 @@ const Table = (() => {
       e.preventDefault();
       const { id } = e.target.closest('form').dataset;
       if (id && typeof Number(id) === 'number') {
-        await window.electron.deleteData(id);
-        Helper.callDataChangeFn();
-        Helper.closeModal();
+        const response = await window.electron.deleteData(id);
+        if (response) {
+          Helper.callDataChangeFn();
+          Helper.closeModal();
+        }
       }
     });
 

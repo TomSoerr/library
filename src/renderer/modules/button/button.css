@@ -1,4 +1,5 @@
 button.button {
+  transition: all var(--transition);
   height: 40px;
   padding: var(--space-m) var(--space-l);
   border-radius: 30rem;
@@ -9,6 +10,8 @@ button.button {
   position: relative;
   user-select: none;
   overflow: hidden;
+  --current-color: var(--color-surface);
+  background-color: var(--current-color);
 }
 
 button.button.icon {
@@ -24,32 +27,20 @@ button.button.icon::before {
   font-size: 1.8rem;
 }
 
-button.button::after {
-  transition: opacity var(--transition);
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: black;
-  opacity: 0;
-}
-
-button.button:where(:hover, :focus-visible)::after {
-  opacity: 0.05;
+button.button:where(:hover, :focus-visible) {
+  background-color: color-mix(in srgb, var(--current-color) 100%, black 5%);
 }
 
 button.button.tonal {
-  background-color: var(--color-secondary-container);
+  --current-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
 }
 
 button.button.filled {
-  background-color: var(--color-primary);
+  --current-color: var(--color-primary);
   color: var(--color-on-primary);
 }
 
-button.button.filled::after {
-  background-color: white;
-}
-
-button.button.filled:where(:hover, :focus)::after {
-  opacity: 0.15;
+button.button.filled:where(:hover, :focus) {
+  background-color: color-mix(in srgb, var(--current-color) 100%, white 15%);
 }

@@ -15,7 +15,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Kiara's Bücher",
+      title: "Kiara's Bücherwelt",
       template: './src/renderer/index.html',
     }),
   ],

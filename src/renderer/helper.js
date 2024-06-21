@@ -100,6 +100,8 @@ class Helper {
     const data = Object.fromEntries(formData.entries());
     await window.electron.saveData(formEl.dataset.id, data);
 
+    console.log('data', data);
+
     Helper.callDataChangeFn();
     Helper.closeModal();
   }

@@ -20,14 +20,14 @@ const input = ({ type, label, value, name, required, attr = '' }) => {
   );
   if (type === 'textarea') {
     const textareaEL = _(`textarea.none#${name}[name="${name}"${attr}]`);
-    if (value) {
+    if (value != null) {
       textareaEL.textContent = value;
     }
     return _(`label[for="${name}"]`, [_(`span{${label}}`), textareaEL]);
   }
 
   const inputEL = _(`input.none[${attributes}]`);
-  if (value) {
+  if (value != null) {
     inputEL.value = value;
   }
   return _(`label[for="${name}"]`, [_(`span{${label}}`), inputEL]);
@@ -91,7 +91,7 @@ const form = ({ data, button }) => {
         type: 'text',
         label: 'Titel*',
         name: 'titel',
-        value: data ? data.titel : null,
+        value: data ? data.titel : '',
         required: true,
         attr: `::pattern="${namePattern.slice(1, -1)}"`,
       }),
@@ -99,34 +99,16 @@ const form = ({ data, button }) => {
         type: 'text',
         label: 'Autor*',
         name: 'autor',
-        value: data ? data.autor : null,
+        value: data ? data.autor : '',
         required: true,
         attr: `::pattern="${namePattern.slice(1, -1)}"`,
       }),
       _('div.form-row', [
         input({
-          type: 'number',
-          label: 'Spice*',
-          name: 'spice',
-          value: data ? data.spice : null,
-          required: true,
-          attr: '::min="1"::max="5"::step="1"',
-        }),
-        input({
-          type: 'number',
-          label: 'Bewertung*',
-          name: 'bewertung',
-          value: data ? data.bewertung : null,
-          required: true,
-          attr: '::min="1"::max="5"::step="1"',
-        }),
-      ]),
-      _('div.form-row', [
-        input({
           type: 'text',
           label: 'Genre*',
           name: 'genre',
-          value: data ? data.genre : null,
+          value: data ? data.genre : '',
           required: true,
           attr: `::pattern="${namePattern.slice(1, -1)}"`,
         }),
@@ -134,7 +116,25 @@ const form = ({ data, button }) => {
           type: 'date',
           label: 'Beendet am',
           name: 'beendet_am',
-          value: data ? data.beendet_am : null,
+          value: data ? data.beendet_am : '',
+        }),
+      ]),
+      _('div.form-row', [
+        input({
+          type: 'number',
+          label: 'Spice*',
+          name: 'spice',
+          value: data != null ? data.spice : '',
+          required: true,
+          attr: '::min="0"::max="5"::step="1"',
+        }),
+        input({
+          type: 'number',
+          label: 'Bewertung*',
+          name: 'bewertung',
+          value: data != null ? data.bewertung : '',
+          required: true,
+          attr: '::min="0"::max="5"::step="1"',
         }),
       ]),
       _('div.form-row', [
@@ -142,14 +142,14 @@ const form = ({ data, button }) => {
           type: 'text',
           label: 'ISBN',
           name: 'isbn',
-          value: data ? data.isbn : null,
+          value: data ? data.isbn : '',
           attr: `::pattern="${ISBNPattern.slice(1, -1)}"`,
         }),
         input({
           type: 'text',
           label: 'Verlag',
           name: 'verlag',
-          value: data ? data.verlag : null,
+          value: data ? data.verlag : '',
           attr: `::pattern="${namePattern.slice(1, -1)}"`,
         }),
       ]),
@@ -158,14 +158,14 @@ const form = ({ data, button }) => {
           type: 'number',
           label: 'Band',
           name: 'band',
-          value: data ? data.band : null,
+          value: data ? data.band : '',
           attr: '::min="1"::step="1"',
         }),
         input({
           type: 'text',
           label: 'Verliehen an',
           name: 'verliehen_an',
-          value: data ? data.verliehen_an : null,
+          value: data ? data.verliehen_an : '',
           attr: `::pattern="${namePattern.slice(1, -1)}"`,
         }),
       ]),
@@ -173,7 +173,7 @@ const form = ({ data, button }) => {
         type: 'textarea',
         label: 'Anmerkungen',
         name: 'anmerkung',
-        value: data ? data.anmerkung : null,
+        value: data ? data.anmerkung : '',
         attr: '::rows="4"',
       }),
       _('div.button-row', button),

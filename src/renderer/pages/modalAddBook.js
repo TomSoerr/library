@@ -8,6 +8,7 @@ const ModalAddBook = (() => {
     text: 'Hinzufügen',
     type: 'filled',
     icon: '\\e145',
+    submit: true,
   });
 
   add.addEventListener('click', Helper.saveOrCreate);

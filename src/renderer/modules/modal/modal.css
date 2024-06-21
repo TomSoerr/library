@@ -1,6 +1,6 @@
 #modal {
-  height: min(80vh, 696px);
-  width: min(60vw, 600px);
+  height: min(85vh, 696px);
+  width: min(85vw, 600px);
   padding: 0;
   border-radius: 2.8rem;
   background-color: var(--color-surface);

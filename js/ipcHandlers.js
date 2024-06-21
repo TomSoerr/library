@@ -80,9 +80,9 @@ const setupIpcHandlers = () => {
   });
 
   // Save data to the database
-  ipcMain.handle('save-data', async (event, id, value) => {
+  ipcMain.handle('save-data', async (event, id, data) => {
     // clean up the data
-    const cleanData = Object.entries(value).reduce((acc, [key, value]) => {
+    let cleanData = Object.entries(data).reduce((acc, [key, value]) => {
       switch (key) {
         case 'gelesen':
         case 'ist_reihe':
@@ -105,6 +105,19 @@ const setupIpcHandlers = () => {
       return acc;
     }, {});
 
+    // Remove data when linked checkbox is unchecked
+    if (!cleanData.ist_reihe) {
+      cleanData.band = null;
+    }
+
+    if (!cleanData.gelesen) {
+      cleanData.beendet_am = null;
+    }
+
+    if (!cleanData.verliehen) {
+      cleanData.verliehen_an = null;
+    }
+
     if (id !== undefined) {
       const idNumber = Number(id);
       // Update the existing entry with the id
@@ -126,9 +139,10 @@ const setupIpcHandlers = () => {
       buttons: ['Ja', 'Nein'],
     });
     if (response === 0) {
-      console.log('Deleting data');
       await Library.destroy({ where: { id: idNumber } });
+      return true;
     }
+    return false;
   });
 
   // Import data from a JSON file

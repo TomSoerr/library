@@ -14,7 +14,7 @@ const Stats = (() => {
     };
 
     // Load data from the database
-    const data = await Helper.loadDatabase();
+    const data = await Helper.loadDatabase('def', 'def');
 
     // Calculate statistics
     const booksNumber = data.length;
@@ -36,6 +36,22 @@ const Stats = (() => {
     const gelesenVorLetztemJahr = data.filter((book) =>
       checkDate(book.beendet_am, 2),
     ).length;
+    const genreRanking = data.reduce((acc, book) => {
+      if (Object.prototype.hasOwnProperty.call(acc, book.genre)) {
+        acc[book.genre] += 1;
+      } else {
+        acc[book.genre] = 1;
+      }
+      return acc;
+    }, {});
+
+    const topGenre = Object.entries(genreRanking)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .reduce((acc, genre) => {
+        acc.push(genre[0]);
+        return acc;
+      }, []);
 
     return {
       booksNumber,
@@ -49,6 +65,9 @@ const Stats = (() => {
       gelesenDiesesJahr,
       gelesenLetztesJahr,
       gelesenVorLetztemJahr,
+      genre1: topGenre[0],
+      genre2: topGenre[1],
+      genre3: topGenre[2],
     };
   };
 
@@ -70,7 +89,10 @@ const Stats = (() => {
         ]),
         _('tr', [
           _('td', 'Prozentsatz der ungelesen Bücher:'),
-          _('td', `${((data.ungelesen / data.booksNumber) * 100).toFixed(1)}%`),
+          _(
+            'td',
+            `${((data.ungelesen / data.booksNumber) * 100 || 0).toFixed(1)}%`,
+          ),
         ]),
         _('tr', [
           _('td', 'Anzahl der verliehenen Bücher:'),
@@ -103,6 +125,18 @@ const Stats = (() => {
         _('tr', [
           _('td', 'Gelesene Bücher vorletztes Jahr:'),
           _('td', data.gelesenVorLetztemJahr || '0'),
+        ]),
+        _('tr', [
+          _('td', 'Häufigste Genre:'),
+          _('td', data.genre1 || 'Keine Daten'),
+        ]),
+        _('tr', [
+          _('td', 'Zweit häufigste Genre:'),
+          _('td', data.genre2 || 'Keine Daten'),
+        ]),
+        _('tr', [
+          _('td', 'Dritt häufigste Genre:'),
+          _('td', data.genre3 || 'Keine Daten'),
         ]),
       ]),
     );

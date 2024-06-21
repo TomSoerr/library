@@ -9,10 +9,19 @@ import { _ } from '../../helper';
  * @param {string} param0.icon - The icon for the button
  * @returns
  */
-const button = ({ text, type, icon = null } = {}) =>
-  _(
-    `button.button.none.ms-within${type ? `.${type}` : ''}${icon ? `.icon[style="--icon: '${icon}';"]` : ''}`,
-    text,
+const button = ({ text, type, submit, icon = null } = {}) => {
+  const classes = String.prototype.concat(
+    '.button.none.ms-within',
+    type ? `.${type}` : '',
+    icon ? '.icon' : '',
   );
+
+  const attributes = String.prototype.concat(
+    submit ? 'type="submit"' : 'type="button"',
+    icon ? `::style="--icon: '${icon}';` : '',
+  );
+
+  return _(`button${classes}[${attributes}]`, text);
+};
 
 export default button;

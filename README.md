@@ -12,4 +12,3 @@ at `src/renderer/fonts`
 # todo
 
 - Spice and Bewertung in- and decreasing order
-- Delete verliehen_an when verliehen is false
