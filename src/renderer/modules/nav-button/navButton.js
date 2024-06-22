@@ -10,5 +10,5 @@ import { _ } from '../../helper';
 export default ({ icon, aria, background }) =>
   _(
     `button.nav-button.none${background ? '.background' : ''}[title="${aria}"::aria-label="${aria}"]`,
-    [_(`div.ms[style="--icon: '${icon}';"]`)],
+    [_(`div.ms-within[style="--icon: '${icon}';"]`)],
   );

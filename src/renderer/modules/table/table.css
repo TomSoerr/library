@@ -103,25 +103,29 @@
   font: var(--font-body-medium);
 }
 
-#books th:not(:first-child) {
+#books th:not(:first-child) span {
   user-select: none;
   cursor: pointer;
 }
 
-#books th:not(:first-child):focus-visible {
+#books th:not(:first-child) span:focus-visible {
   color: var(--color-outline);
   outline: none;
 }
-#books th:not(:last-child, :first-child)::after {
+
+#books th:not(:last-child, :first-child) span::after {
   content: "\e5c5";
   font-size: var(--space-xl);
   vertical-align: -10px;
-  transition: opacity var(--transition);
+  transition: all var(--transition);
   opacity: 0;
 }
 
-#books th[class*="active"]::after {
+#books th span.active::after {
   opacity: 1;
+}
+#books th span.active.asc::after {
+  transform: rotate(180deg);
 }
 
 #books th:last-child .icon-button div {

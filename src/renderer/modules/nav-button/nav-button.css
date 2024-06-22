@@ -1,5 +1,6 @@
 .nav-button div::after {
   content: var(--icon);
+  display: block;
 }
 
 .nav-button {

@@ -8,5 +8,5 @@ import { _ } from '../../helper';
  */
 export default ({ icon, aria }) =>
   _(`button.icon-button.none[title="${aria}"::aria-label="${aria}"]`, [
-    _(`div.ms[style="--icon: '${icon}';"]`),
+    _(`div.ms-within[style="--icon: '${icon}';"]`),
   ]);

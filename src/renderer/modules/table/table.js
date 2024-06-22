@@ -70,17 +70,22 @@ const Table = (() => {
     _(`tr[data-id="${row.id}"]`, [
       _(`td.ms[data-gelesen="${row.gelesen}"]`),
       _('td', [
-        _(`div.titel${row.favorit ? '.fav' : ''}`, [row.titel, _('span.ms')]),
+        _(`div.titel${row.favorit ? '.fav' : ''}`, [
+          row.titel,
+          _('span.ms-within'),
+        ]),
         _('div.autor', row.autor),
       ]),
       _('td.ms.genre', row.genre),
       _('td.spice', [
-        ...Array.from({ length: row.spice }, () => _('span.ms.filled')),
-        ...Array.from({ length: 5 - row.spice }, () => _('span.ms')),
+        ...Array.from({ length: row.spice }, () => _('span.ms-within.filled')),
+        ...Array.from({ length: 5 - row.spice }, () => _('span.ms-within')),
       ]),
       _(`td.bewertung[data-bewertung="${row.bewertung}"]`, [
-        ...Array.from({ length: row.bewertung }, () => _('span.ms.filled')),
-        ...Array.from({ length: 5 - row.bewertung }, () => _('span.ms')),
+        ...Array.from({ length: row.bewertung }, () =>
+          _('span.ms-within.filled'),
+        ),
+        ...Array.from({ length: 5 - row.bewertung }, () => _('span.ms-within')),
       ]),
       _('td.edit', empty ? '' : editButton()),
     ]);
@@ -114,33 +119,34 @@ const Table = (() => {
   };
 
   const titel = _(
-    'th.ms-within[title="Nach Titel sortieren"::tabindex="0"::role="button"]',
+    'span.ms-within[title="Nach Titel sortieren"::tabindex="0"::role="button"]',
     'Titel',
   );
   const genre = _(
-    'th.ms-within[title="Nach Genre sortieren"::tabindex="0"::role="button"]',
+    'span.ms-within[title="Nach Genre sortieren"::tabindex="0"::role="button"]',
     'Genre',
   );
   const spice = _(
-    'th.ms-within[title="Nach Spice sortieren"::tabindex="0"::role="button"]',
+    'span.ms-within[title="Nach Spice sortieren"::tabindex="0"::role="button"]',
     'Spice',
   );
   const bewertung = _(
-    'th.ms-within[title="Nach Bewertung sortieren"::tabindex="0"::role="button"]',
+    'span.ms-within[title="Nach Bewertung sortieren"::tabindex="0"::role="button"]',
     'Bewertung',
   );
-  const filter = _(
-    'th.ms-within',
-    iconButton({
-      aria: 'Sortierung aufheben',
-      icon: '\\e152',
-    }),
+  const filter = iconButton({
+    aria: 'Sortierung aufheben',
+    icon: '\\eb57',
+  });
+
+  const tableHeader = [titel, genre, spice, bewertung, filter].map((el) =>
+    _('th', el),
   );
 
   const HTMLElement = _(
     'div#books-wrapper',
     _('table#books', [
-      _('thead', _('tr', [_('th'), titel, genre, spice, bewertung, filter])),
+      _('thead', _('tr', [_('th'), ...tableHeader])),
       tableBody,
     ]),
   );

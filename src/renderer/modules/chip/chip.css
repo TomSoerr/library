@@ -33,6 +33,10 @@
   --icon: "\ef4f";
 }
 
+.chip input#radio-alle-buecher:checked::before {
+  --icon: "\eb32";
+}
+
 .chip:has(input:checked) {
   --current-color: var(--color-secondary-container);
   color: var(--color-on-secondary-container);

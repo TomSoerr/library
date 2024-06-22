@@ -27,16 +27,16 @@ const setupIpcHandlers = () => {
         case 'gen':
           arr.sort((a, b) => a.genre.localeCompare(b.genre));
           break;
-        case 'spi-d':
+        case 'spi-desc':
           arr.sort((a, b) => b.spice - a.spice);
           break;
-        case 'spi-i':
+        case 'spi-asc':
           arr.sort((a, b) => a.spice - b.spice);
           break;
-        case 'bew-d':
+        case 'bew-desc':
           arr.sort((a, b) => b.bewertung - a.bewertung);
           break;
-        case 'bew-i':
+        case 'bew-asc':
           arr.sort((a, b) => a.bewertung - b.bewertung);
           break;
         default:
@@ -82,7 +82,7 @@ const setupIpcHandlers = () => {
   // Save data to the database
   ipcMain.handle('save-data', async (event, id, data) => {
     // clean up the data
-    let cleanData = Object.entries(data).reduce((acc, [key, value]) => {
+    const cleanData = Object.entries(data).reduce((acc, [key, value]) => {
       switch (key) {
         case 'gelesen':
         case 'ist_reihe':
@@ -118,6 +118,7 @@ const setupIpcHandlers = () => {
       cleanData.verliehen_an = null;
     }
 
+    // Update or create the entry
     if (id !== undefined) {
       const idNumber = Number(id);
       // Update the existing entry with the id
@@ -146,7 +147,7 @@ const setupIpcHandlers = () => {
   });
 
   // Import data from a JSON file
-  ipcMain.handle('import-database', async (event) => {
+  ipcMain.handle('import-database', async () => {
     const { filePaths } = await dialog.showOpenDialog({
       properties: ['openFile'],
       filters: [{ name: 'JSON', extensions: ['json'] }],
@@ -199,7 +200,7 @@ const setupIpcHandlers = () => {
   });
 
   // Export data to a JSON file
-  ipcMain.handle('export-database', async (event) => {
+  ipcMain.handle('export-database', async () => {
     const { filePath } = await dialog.showSaveDialog({
       filters: [{ name: 'JSON', extensions: ['json'] }],
     });

@@ -11,16 +11,23 @@ class Helper {
    */
   static modal = null;
 
+  /**
+   * Stores the dialog HTMLElement
+   * @type {HTMLElement}
+   */
   static dialog = null;
 
+  /**
+   * Adds content to the modal and shows it
+   * @param {HTMLElement} content - Content of the modal
+   */
   static updateModal(content) {
     Helper.modal.append(content);
     Helper.dialog.showModal();
   }
 
   /**
-   * Removes Content from the modal
-   * @returns {void}
+   * Removes Content from the modal and closes it
    */
   static closeModal() {
     if (Helper.modal) {
@@ -60,7 +67,7 @@ class Helper {
   /**
    * The static method to load the database
    * @param {("def"|"fav"|"exp"|"ver"|"ung"|"gel")} filter
-   * @param {("def"|"tit"|"gen"|"spi-d"|"spi-i"|"bew-d"|"bew-i")} order
+   * @param {("def"|"tit"|"gen"|"spi-desc"|"spi-asc"|"bew-desc"|"bew-asc")}
    * @returns {Object} - The database object
    */
   static async loadDatabase(filter, order) {
@@ -68,25 +75,46 @@ class Helper {
     return data;
   }
 
+  /**
+   * Stores functions that will be called when the database changes
+   */
   static dataChangeFns = [];
 
+  /**
+   * @param {Function} fn - Function to be called when event is fired
+   */
   static addDataChangeFn(fn) {
     Helper.dataChangeFns.push(fn);
   }
 
-  static callDataChangeFn(order) {
-    Helper.dataChangeFns.forEach((fn) => fn(order));
+  /**
+   * Call all functions that are listening
+   */
+  static callDataChangeFn() {
+    Helper.dataChangeFns.forEach((fn) => fn());
   }
 
-  static async saveOrCreate(e) {
-    e.preventDefault();
-    const formEl = e.target.closest('form');
+  /**
+   * Create Object from form data and save to database
+   * @param {Event} event - Event inside the edit or add form
+   */
+  static async saveOrCreate(event) {
+    // prevent page from reloading when form is submitted
+    event.preventDefault();
+
+    // Get form element
+    const formEl = event.target.closest('form');
+
+    // Recreate default validity check
     if (formEl.checkValidity() === false) {
       formEl.reportValidity();
       return;
     }
+
+    // Create form data object
     const formData = new FormData();
 
+    // Iterate over all form elements
     Array.from(formEl.elements).forEach((element) => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
         if (element.type === 'checkbox') {
@@ -97,11 +125,13 @@ class Helper {
       }
     });
 
+    // Convert form data to object
     const data = Object.fromEntries(formData.entries());
+
+    // Save data to database
     await window.electron.saveData(formEl.dataset.id, data);
 
-    console.log('data', data);
-
+    // Update the table and close the modal
     Helper.callDataChangeFn();
     Helper.closeModal();
   }
