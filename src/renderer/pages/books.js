@@ -5,7 +5,8 @@ import chip from '../modules/chip/chip';
 import searchChip from '../modules/search/search';
 
 /**
- * Books page object
+ * Books page object.
+ * This module contains the logic for the filtering and sorting of the table
  */
 const Books = (() => {
   // Chips for filtering
@@ -52,6 +53,7 @@ const Books = (() => {
     icon: '\\e7fd',
   });
 
+  // Variables for the current order and filter
   let currentOrder = 'def';
   let currentFilter = 'def';
 
@@ -60,6 +62,7 @@ const Books = (() => {
    * @param {("def"|"tit"|"gen"|"spi-desc"|"spi-asc"|"bew-desc"|"bew-asc")} order
    */
   const loadTable = async (filter = null, order = null) => {
+    // update variables if input is defined
     if (order !== null) {
       currentOrder = order;
     }
@@ -67,7 +70,10 @@ const Books = (() => {
       currentFilter = filter;
     }
 
+    // load database
     const data = await Helper.loadDatabase(currentFilter, currentOrder);
+
+    // update the table
     Table.loadTable(data);
   };
 

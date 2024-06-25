@@ -2,7 +2,15 @@ import '../styles/stats.css';
 import Nav from '../modules/nav/nav';
 import Helper, { _ } from '../helper';
 
+/**
+ * Stats page object.
+ * This module creates statistics about the books in the database
+ */
 const Stats = (() => {
+  /**
+   * Load data from the database and calculate statistics
+   * @returns {Object} - Object with the statistics
+   */
   const loadData = async () => {
     // Function to check if the book was finished in a given year
     const date = new Date().getFullYear();
@@ -71,6 +79,10 @@ const Stats = (() => {
     };
   };
 
+  /**
+   * Visualize the statistics in a table
+   * @param {Object} data - Data object with the statistics
+   */
   const table = (data) =>
     _(
       'div.stats',
@@ -141,13 +153,16 @@ const Stats = (() => {
       ]),
     );
 
+  // Function that will be called when the page is loaded
   const load = async () => {
     Helper.main.append(_('h1', 'Statistiken'), table(await loadData()));
     Nav.removeActive();
     Nav.stats.classList.add('active');
   };
 
+  // Link the nav button to the Helper functions
   Nav.stats.addEventListener('click', () => Helper.updateMain(Stats));
+
   return { load };
 })();
 

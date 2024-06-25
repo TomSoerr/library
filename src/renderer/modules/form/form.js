@@ -8,9 +8,13 @@ import chip from '../chip/chip';
  * @param {string} param0.type - The type of the input field
  * @param {string} param0.label - The label for the input field
  * @param {string} param0.value - The value of the input field
+ * @param {string} param0.name - The name attribute of the input field
+ * @param {boolean} param0.required - If the input field is required
+ * @param {string} param0.attr - Additional attributes for the input field
  * @returns
  */
 const input = ({ type, label, value, name, required, attr = '' }) => {
+  // Concat string for attributes
   const attributes = String.prototype.concat(
     `type="${type}"`,
     `::name="${name}"`,
@@ -18,6 +22,8 @@ const input = ({ type, label, value, name, required, attr = '' }) => {
     `${required ? '::required=""' : ''}`,
     `${attr}`,
   );
+
+  // Special return for textarea
   if (type === 'textarea') {
     const textareaEL = _(`textarea.none#${name}[name="${name}"${attr}]`);
     if (value != null) {
@@ -26,6 +32,7 @@ const input = ({ type, label, value, name, required, attr = '' }) => {
     return _(`label[for="${name}"]`, [_(`span{${label}}`), textareaEL]);
   }
 
+  // All other input types
   const inputEL = _(`input.none[${attributes}]`);
   if (value != null) {
     inputEL.value = value;
@@ -41,12 +48,15 @@ const input = ({ type, label, value, name, required, attr = '' }) => {
  * @returns {HTMLElement}
  */
 const form = ({ data, button }) => {
+  // Regex pattern for ISBN numbers
   let ISBNPattern = /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d\-]+$/;
   ISBNPattern = ISBNPattern.toString();
 
+  // Regex pattern for default text fields
   let namePattern = /^.{2,}$/;
   namePattern = namePattern.toString();
 
+  // Use the input and chip functions to create the form
   const HTMLElement = _(
     `form.book-data${data ? `[data-id="${data.id}"]` : ''}`,
     [

@@ -5,17 +5,14 @@ import button from '../button/button';
 import form from '../form/form';
 
 /**
- *
+ * Table that can be updated with content
+ * This module is only for visualizing the data
  * @param {Object[]} data - The data for the table in JSON format
  * @returns
  */
 const Table = (() => {
   const editButton = () => {
-    const btn = iconButton({
-      aria: 'Ansehen und bearbeiten',
-      icon: '\\e5d4',
-    });
-
+    // Buttons that will be used inside the modal
     const saveButton = button({
       text: 'Speichern',
       type: 'filled',
@@ -23,14 +20,15 @@ const Table = (() => {
       submit: true,
     });
 
-    saveButton.addEventListener('click', (e) => {
-      Helper.saveOrCreate(e);
-    });
-
     const deleteButton = button({
       text: 'Löschen',
       type: 'tonal',
       icon: '\\e92b',
+    });
+
+    // Link the buttons to the Helper functions
+    saveButton.addEventListener('click', (e) => {
+      Helper.saveOrCreate(e);
     });
 
     deleteButton.addEventListener('click', async (e) => {
@@ -45,7 +43,14 @@ const Table = (() => {
       }
     });
 
-    btn.addEventListener('click', async (e) => {
+    // Button to open the modal
+    const kebabButton = iconButton({
+      aria: 'Ansehen und bearbeiten',
+      icon: '\\e5d4',
+    });
+
+    // Create modal for each row
+    kebabButton.addEventListener('click', async (e) => {
       const { id } = e.target.closest('tr').dataset;
       if (id && typeof Number(id) === 'number') {
         const rowData = await window.electron.fetchData(id);
@@ -63,9 +68,14 @@ const Table = (() => {
       }
     });
 
-    return btn;
+    return kebabButton;
   };
 
+  /**
+   * @param {Object} row - The row data form the database
+   * @param {Boolean} empty - Can hide the edit button if data is empty
+   * @returns {HTMLElement} - One table row
+   */
   const rowTemplate = (row, empty = false) =>
     _(`tr[data-id="${row.id}"]`, [
       _(`td.ms[data-gelesen="${row.gelesen}"]`),
@@ -90,6 +100,7 @@ const Table = (() => {
       _('td.edit', empty ? '' : editButton()),
     ]);
 
+  // Table body as a wrapper for the updatable content
   const tableBody = _('tbody');
 
   const loadTable = (data) => {
@@ -118,6 +129,8 @@ const Table = (() => {
     });
   };
 
+  // Table headers that can be used as buttons
+  // This functionality is added by another module
   const titel = _(
     'span.ms-within[title="Nach Titel sortieren"::tabindex="0"::role="button"]',
     'Titel',
@@ -139,10 +152,12 @@ const Table = (() => {
     icon: '\\eb57',
   });
 
+  // Wrap the table headers so they can only the text can be clicked
   const tableHeader = [titel, genre, spice, bewertung, filter].map((el) =>
     _('th', el),
   );
 
+  // Create the table with no content
   const HTMLElement = _(
     'div#books-wrapper',
     _('table#books', [
@@ -151,6 +166,7 @@ const Table = (() => {
     ]),
   );
 
+  // Export the headers so they could be used for sorting
   return { HTMLElement, loadTable, titel, genre, spice, bewertung, filter };
 })();
 
