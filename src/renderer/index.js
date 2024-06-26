@@ -17,7 +17,7 @@ window.electron.setVisualZoomLevelLimits(1, 1);
 Helper.main = _('main');
 
 // Set the default page
-Helper.updateMain(Books);
+Helper.updateMain(Books);|||\
 
 document.body.append(
   Nav.HTMLElement,

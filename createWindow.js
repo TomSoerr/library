@@ -14,7 +14,7 @@ const browserWindowOptions = {
     sandbox: true,
     disableBlinkFeatures: 'Eval',
     webviewTag: false,
-    devTools: process.env.NODE_ENV === 'development',
+    devTools: true,
   },
 };
 
@@ -38,7 +38,8 @@ const menuOptions = [
     submenu: [
       { role: 'resetZoom' },
       { role: 'togglefullscreen' },
-      process.env.NODE_ENV === 'development' ? { role: 'reload' } : {},
+      { role: 'reload' },
+      { role: 'toggleDevTools' },
     ],
   },
   {
