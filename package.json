@@ -35,8 +35,8 @@
     "sqlite3": "^5.1.7"
   },
   "build": {
-    "appId": "your.app.id",
-    "productName": "Your Product Name",
+    "appId": "com.kiaras.buecherwelt",
+    "productName": "Kiara's Bücherwelt",
     "directories": {
       "output": "dist"
     },
