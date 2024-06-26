@@ -118,7 +118,7 @@
   font-size: var(--space-xl);
   vertical-align: -10px;
   transition: all var(--transition);
-  opacity: 0;
+  opacity: 0.15;
 }
 
 #books th span.active::after {

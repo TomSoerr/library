@@ -44,13 +44,13 @@ const Table = (() => {
     });
 
     // Button to open the modal
-    const kebabButton = iconButton({
+    const penButton = iconButton({
       aria: 'Ansehen und bearbeiten',
-      icon: '\\e5d4',
+      icon: '\\e3c9',
     });
 
     // Create modal for each row
-    kebabButton.addEventListener('click', async (e) => {
+    penButton.addEventListener('click', async (e) => {
       const { id } = e.target.closest('tr').dataset;
       if (id && typeof Number(id) === 'number') {
         const rowData = await window.electron.fetchData(id);
@@ -68,7 +68,7 @@ const Table = (() => {
       }
     });
 
-    return kebabButton;
+    return penButton;
   };
 
   /**

@@ -8,7 +8,7 @@
   "prettier": "./prettierrc.json",
   "scripts": {
     "start": "NODE_ENV=development electron .",
-    "build": "NODE_ENV=production webpack --mode=production",
+    "build": "cross-env NODE_ENV=production webpack --mode=production",
     "watch": "webpack --watch",
     "build:win": "cross-env NODE_ENV=production electron-builder --win",
     "build:mac": "NODE_ENV=production electron-builder --mac"
@@ -38,7 +38,7 @@
     "appId": "com.kiaras.buecherwelt",
     "productName": "Kiara's Bücherwelt",
     "directories": {
-      "output": "dist"
+      "output": "build"
     },
     "mac": {
       "icon": "assets/icon.icns",
