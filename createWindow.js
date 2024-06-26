@@ -38,7 +38,7 @@ const menuOptions = [
     submenu: [
       { role: 'resetZoom' },
       { role: 'togglefullscreen' },
-      { role: 'toggleDevTools' },
+      process.env.NODE_ENV === 'development' ? { role: 'reload' } : {},
     ],
   },
   {
@@ -49,7 +49,7 @@ const menuOptions = [
 
 function createWindow() {
   const win = new BrowserWindow(browserWindowOptions);
-  // Remove before production
+
   if (process.env.NODE_ENV === 'development') {
     win.webContents.openDevTools();
   }
