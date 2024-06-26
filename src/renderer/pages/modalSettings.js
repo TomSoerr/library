@@ -40,7 +40,7 @@ const ModalSettings = (() => {
     _('h3', 'Datenbank'),
     _('p', 'Diese Einstellungen sind mit großer Vorsicht zu behandeln!'),
     // Remove import and delete button for production
-    _('div.button-row', [exportButton, importButton, deleteButton]),
+    _('div.button-row', [exportButton, importButton]),
     _('h3', 'Sortierung'),
     _(
       'p',
