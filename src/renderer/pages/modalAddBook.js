@@ -19,17 +19,23 @@ const ModalAddBook = (() => {
   // Link the button to the Helper functions
   add.addEventListener('click', Helper.saveOrCreate);
 
-  // Create an empty form
-  const emptyForm = form({ data: null, button: add });
+  const getHTMLElement = () => {
+    // Create an empty form
+    const emptyForm = form({ data: null, button: add });
 
-  // Create the modal content
-  const HTMLElement = _('div.modal-content', [
-    _('h2', 'Buch hinzufügen'),
-    emptyForm,
-  ]);
+    // Create the modal content
+    const HTMLElement = _('div.modal-content', [
+      _('h2', 'Buch hinzufügen'),
+      emptyForm,
+    ]);
+
+    return HTMLElement;
+  };
 
   // Link the nav button to the Helper functions
-  Nav.addBook.addEventListener('click', () => Helper.updateModal(HTMLElement));
+  Nav.addBook.addEventListener('click', () =>
+    Helper.updateModal(getHTMLElement()),
+  );
 })();
 
 export default ModalAddBook;
