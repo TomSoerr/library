@@ -1,3 +1,5 @@
+import LibraryService from "../../database";
+
 class Helper {
   /**
    * Stores the main HTMLElement
@@ -71,7 +73,7 @@ class Helper {
    * @returns {Object} - The database object
    */
   static async loadDatabase(filter, order) {
-    const data = await window.electron.fetchAllData(filter, order);
+    const data = await LibraryService.getBooks(filter, order);
     return data;
   }
 
@@ -129,7 +131,7 @@ class Helper {
     const data = Object.fromEntries(formData.entries());
 
     // Save data to database
-    await window.electron.saveData(formEl.dataset.id, data);
+    await LibraryService.saveBook(formEl.dataset.id, data);
 
     // Update the table and close the modal
     Helper.callDataChangeFn();

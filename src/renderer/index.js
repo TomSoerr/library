@@ -9,10 +9,6 @@ import Stats from './pages/stats';
 import ModalSettings from './pages/modalSettings';
 import ModalAddBook from './pages/modalAddBook';
 
-// Set the zoom factor
-window.electron.setZoomFactor(1);
-window.electron.setVisualZoomLevelLimits(1, 1);
-
 // Create the main element
 Helper.main = _('main');
 

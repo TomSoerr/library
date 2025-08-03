@@ -1,6 +1,7 @@
 import Helper, { _ } from '../helper';
 import Nav from '../modules/nav/nav';
 import button from '../modules/button/button';
+import LibraryService from '../../../database';
 
 /**
  * Books page object
@@ -25,13 +26,13 @@ const ModalSettings = (() => {
 
   // Link the buttons to the electron functions
   importButton.addEventListener('click', () => {
-    window.electron.importDatabase().then(Helper.callDataChangeFn);
+    LibraryService.importDatabase().then(Helper.callDataChangeFn);
   });
 
-  exportButton.addEventListener('click', window.electron.exportDatabase);
+  exportButton.addEventListener('click', LibraryService.exportDatabase);
 
   deleteButton.addEventListener('click', () => {
-    window.electron.deleteDatabase().then(Helper.callDataChangeFn);
+    LibraryService.deleteDatabase().then(Helper.callDataChangeFn);
   });
 
   // Create the modal content
@@ -40,7 +41,7 @@ const ModalSettings = (() => {
     _('h3', 'Datenbank'),
     _('p', 'Diese Einstellungen sind mit großer Vorsicht zu behandeln!'),
     // Remove import and delete button for production
-    _('div.button-row', [exportButton, importButton]),
+    _('div.button-row', [exportButton, importButton, deleteButton]),
     _('h3', 'Sortierung'),
     _(
       'p',

@@ -3,6 +3,7 @@ import Helper, { _ } from '../../helper';
 import iconButton from '../icon-button/iconButton';
 import button from '../button/button';
 import form from '../form/form';
+import LibraryService from '../../../../database';
 
 /**
  * Table that can be updated with content
@@ -35,7 +36,7 @@ const Table = (() => {
       e.preventDefault();
       const { id } = e.target.closest('form').dataset;
       if (id && typeof Number(id) === 'number') {
-        const response = await window.electron.deleteData(id);
+        const response = await LibraryService.deleteBook(id);
         if (response) {
           Helper.callDataChangeFn();
           Helper.closeModal();
@@ -53,7 +54,7 @@ const Table = (() => {
     penButton.addEventListener('click', async (e) => {
       const { id } = e.target.closest('tr').dataset;
       if (id && typeof Number(id) === 'number') {
-        const rowData = await window.electron.fetchData(id);
+        const rowData = await LibraryService.getBook(id);
         if (rowData) {
           Helper.updateModal(
             _('div.modal-content', [
