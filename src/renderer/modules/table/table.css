@@ -1,84 +1,45 @@
 #books-wrapper {
-  padding: 0 var(--space-xl);
+  margin-top: var(--space-m);
 }
 
-#books-wrapper {
-  position: relative;
-  --table-header-height: 5rem;
-}
-
-#books-wrapper::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  top: var(--table-header-height);
-  right: 0;
-  background-color: var(--color-surface-container);
-  z-index: 1;
-  border-radius: var(--space-ml);
+#books-wrapper .chip-dropdown {
+  margin-left: auto;
+  margin-bottom: var(--space-s);
 }
 
 /* ---------------- */
 
 #books {
-  border-collapse: collapse;
-  position: relative;
-  z-index: 2;
+  background-color: var(--color-surface-container);
+  border-radius: var(--space-ml);
+  padding: var(--space-ml);
   width: 100%;
 }
 
-#books th {
-  color: var(--color-on-surface);
-  font: var(--font-label-large);
-  height: var(--table-header-height);
-  text-align: left;
+#books ul {
+  margin: 0;
+  display: grid;
+  gap: var(--space-xs) var(--space-m);
+  align-items: center;
+  grid-template-columns: auto 4fr 1fr auto auto auto;
   padding: 0;
 }
 
-#books th:nth-child(1) {
-  width: var(--space-xxxl);
-}
-
-#books th:nth-child(3),
-#books th:nth-child(4),
-#books th:nth-child(5) {
-  min-width: 12rem;
-  max-width: 12%;
-}
-
-#books th:nth-child(6) {
-  width: var(--space-xxl);
-}
-
-/* ---------------- */
-
-#books tbody tr:not(:last-child) {
+#books hr {
+  grid-column: span 6;
+  width: 100%;
+  outline: none;
+  border: none;
   border-bottom: 2px solid var(--color-outline-variant);
 }
 
-#books tbody tr:first-child td {
-  padding-top: var(--space-ml);
+#books li {
+  list-style-type: none;
+  display: contents;
+  margin: 0;
 }
-
-#books tbody tr:last-child td {
-  padding-bottom: var(--space-ml);
-}
-
-#books tbody tr:only-child td {
-  padding-top: var(--space-ml);
-  padding-bottom: var(--space-ml);
-}
-
-#books td {
-  padding: var(--space-s) var(--space-m) var(--space-s) 0;
-  border: none;
-  color: var(--color-on-surface-variant);
-  display: table-cell;
-}
-
-#books td:where(:first-child, :last-child) {
-  padding-right: 0;
+#books li:last-child hr {
+  display: none;
 }
 
 /* ___________________ */
@@ -103,70 +64,45 @@
   font: var(--font-body-medium);
 }
 
-#books th:not(:first-child) span {
-  user-select: none;
-  cursor: pointer;
-}
-
-#books th:not(:first-child) span:focus-visible {
-  color: var(--color-outline);
-  outline: none;
-}
-
-#books th:not(:last-child, :first-child) span::after {
-  content: "\e5c5";
-  font-size: var(--space-xl);
-  vertical-align: -10px;
-  transition: all var(--transition);
-  opacity: 0.15;
-}
-
-#books th span.active::after {
-  opacity: 1;
-}
-#books th span.active.asc::after {
-  transform: rotate(180deg);
-}
-
-#books th:last-child .icon-button div {
+#books .edit .icon-button div {
   color: var(--color-on-surface);
 }
 
-#books td[data-gelesen] {
+#books div[data-gelesen] {
   font-size: 2.6rem;
   line-height: 1;
   text-align: center;
 }
 
-#books td[data-gelesen="true"]::before {
+#books div[data-gelesen="true"]::before {
   content: "\f53e";
 }
 
-#books td[data-gelesen="false"]::before {
+#books div[data-gelesen="false"]::before {
   content: "\e0e0";
 }
 
-#books td.spice,
-#books td.bewertung {
+#books div.spice,
+#books div.bewertung {
   font-size: 1.8rem;
   line-height: 1;
 }
 
-#books td:where(.spice, .bewertung) span {
+#books div:where(.spice, .bewertung) span {
   display: inline-block;
 }
 
-#books td.spice span::after {
+#books div.spice span::after {
   content: "\f16a";
   color: var(--color-error);
 }
 
-#books td.bewertung span::after {
+#books div.bewertung span::after {
   content: "\e838";
   color: var(--color-tertiary70);
 }
 
-#books td span.filled::after {
+#books span.filled::after {
   font-variation-settings:
     "FILL" 1,
     "wght" 400,
@@ -186,22 +122,10 @@
 /* _____________________________ */
 
 @media (max-width: 900px) {
-  #books th:nth-child(4),
-  #books td:nth-child(4) {
-    display: none;
-  }
 }
 
 @media (max-width: 768px) {
-  #books th:nth-child(5),
-  #books td:nth-child(5) {
-    display: none;
-  }
 }
 
 @media (max-width: 636px) {
-  #books th:nth-child(3),
-  #books td:nth-child(3) {
-    display: none;
-  }
 }

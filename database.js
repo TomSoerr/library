@@ -118,9 +118,9 @@ const LibraryService = {
       'favorit',
       'leseexemplar',
       'verliehen',
-      'geliehen', // Added
-      'ebook', // Added
-      'aussortiert', // Added
+      'geliehen',
+      'ebook', 
+      'aussortiert', 
     ].forEach((key) => (cleanData[key] = cleanData[key] === 'on' ? 1 : 0));
     ['spice', 'bewertung'].forEach(
       (key) => (cleanData[key] = Number(cleanData[key])),

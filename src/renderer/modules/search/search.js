@@ -7,12 +7,12 @@ import { _ } from '../../helper';
  */
 const searchChip = (() => {
   // Text input for the search chip
-  const input = _('input.none[type="text"::placeholder="Suchen"]');
+  const input = _('input.none#search-text[type="text"::placeholder="Suchen"]');
 
   // Radio button for the search chip
   // name is set to the same value as the other radio buttons inside the form
   const button = _(
-    'input.ms-within.none#search[type="radio"::name="order"::value="search"]',
+    'input.ms-within.none#search[type="radio"::name="filter"::value="search"]',
   );
 
   // Wrap the text input and button

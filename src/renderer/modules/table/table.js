@@ -4,6 +4,7 @@ import iconButton from '../icon-button/iconButton';
 import button from '../button/button';
 import form from '../form/form';
 import LibraryService from '../../../../database';
+import dropdown from '../dropdown/dropdown';
 
 /**
  * Table that can be updated with content
@@ -52,11 +53,9 @@ const Table = (() => {
 
     // Create modal for each row
     penButton.addEventListener('click', async (e) => {
-      const { id } = e.target.closest('tr').dataset;
+      const { id } = e.target.closest('li').dataset;
       if (id && typeof Number(id) === 'number') {
         const rowData = await LibraryService.getBook(+id);
-        console.info('Row data for edit:', rowData);
-        console.info('id:', typeof id, id);
         if (rowData) {
           Helper.updateModal(
             _('div.modal-content', [
@@ -80,38 +79,42 @@ const Table = (() => {
    * @returns {HTMLElement} - One table row
    */
   const rowTemplate = (row, empty = false) =>
-    _(`tr[data-id="${row.id}"]`, [
-      _(`td.ms[data-gelesen="${row.gelesen == 1 ? 'true' : 'false'}"]`),
-      _('td', [
+    _(`li[data-id="${row.id}"]`, [
+      _(`div.ms[data-gelesen="${row.gelesen == 1 ? 'true' : 'false'}"]`),
+
+      _('div', [
         _(`div.titel${row.favorit ? '.fav' : ''}`, [
           row.titel,
           _('span.ms-within'),
         ]),
         _('div.autor', row.autor),
       ]),
-      _('td.ms.genre', row.genre),
-      _('td.spice', [
+
+      _('div.genre', row.genre),
+      _('div.spice', [
         ...Array.from({ length: row.spice }, () => _('span.ms-within.filled')),
         ...Array.from({ length: 5 - row.spice }, () => _('span.ms-within')),
       ]),
-      _(`td.bewertung[data-bewertung="${row.bewertung}"]`, [
+      _(`div.bewertung[data-bewertung="${row.bewertung}"]`, [
         ...Array.from({ length: row.bewertung }, () =>
           _('span.ms-within.filled'),
         ),
         ...Array.from({ length: 5 - row.bewertung }, () => _('span.ms-within')),
       ]),
-      _('td.edit', empty ? '' : editButton()),
+
+      _('div.edit', empty ? '' : editButton()),
+      _('hr'),
     ]);
 
   // Table body as a wrapper for the updatable content
-  const tableBody = _('tbody');
+  const tableList = _('ul');
 
   const loadTable = (data) => {
-    while (tableBody.firstChild) {
-      tableBody.removeChild(tableBody.firstChild);
+    while (tableList.firstChild) {
+      tableList.removeChild(tableList.firstChild);
     }
     if (data.length === 0) {
-      tableBody.appendChild(
+      tableList.appendChild(
         rowTemplate(
           {
             id: 0,
@@ -128,49 +131,32 @@ const Table = (() => {
       );
     }
     data.forEach((row) => {
-      tableBody.appendChild(rowTemplate(row));
+      tableList.appendChild(rowTemplate(row));
     });
   };
 
-  // Table headers that can be used as buttons
-  // This functionality is added by another module
-  const titel = _(
-    'span.ms-within[title="Nach Titel sortieren"::tabindex="0"::role="button"]',
-    'Titel',
-  );
-  const genre = _(
-    'span.ms-within[title="Nach Genre sortieren"::tabindex="0"::role="button"]',
-    'Genre',
-  );
-  const spice = _(
-    'span.ms-within[title="Nach Spice sortieren"::tabindex="0"::role="button"]',
-    'Spice',
-  );
-  const bewertung = _(
-    'span.ms-within[title="Nach Bewertung sortieren"::tabindex="0"::role="button"]',
-    'Bewertung',
-  );
-  const filter = iconButton({
-    aria: 'Sortierung aufheben',
-    icon: '\\eb57',
+  const selectOrder = dropdown({
+    label: 'Sortierung',
+    name: 'table-sort',
+    options: [
+      { value: 'def', label: 'Autor' },
+      { value: 'tit', label: 'Titel' },
+      { value: 'gen', label: 'Genre' },
+      { value: 'spi-desc', label: 'Spice - absteigend' },
+      { value: 'spi-asc', label: 'Spice - aufsteigend' },
+      { value: 'bew-desc', label: 'Bewertung - absteigend' },
+      { value: 'bew-asc', label: 'Bewertung - aufsteigend' },
+    ],
   });
 
-  // Wrap the table headers so they can only the text can be clicked
-  const tableHeader = [titel, genre, spice, bewertung, filter].map((el) =>
-    _('th', el),
-  );
-
   // Create the table with no content
-  const HTMLElement = _(
-    'div#books-wrapper',
-    _('table#books', [
-      _('thead', _('tr', [_('th'), ...tableHeader])),
-      tableBody,
-    ]),
-  );
+  const HTMLElement = _('div#books-wrapper', [
+    selectOrder,
+    _('div#books', tableList),
+  ]);
 
   // Export the headers so they could be used for sorting
-  return { HTMLElement, loadTable, titel, genre, spice, bewertung, filter };
+  return { HTMLElement, loadTable, selectOrder };
 })();
 
 export default Table;

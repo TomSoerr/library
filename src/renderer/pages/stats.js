@@ -25,33 +25,42 @@ const Stats = (() => {
     const data = await Helper.loadDatabase('def', 'def');
 
     // Calculate statistics
-    const booksNumber = data.length;
-    const ungelesen = data.filter((book) => book.gelesen === false).length;
-    const gelesen = data.filter((book) => book.gelesen === true).length;
-    const verliehen = data.filter((book) => book.verliehen === true).length;
-    const leseexemplar = data.filter(
-      (book) => book.leseexemplar === true,
+    const booksNumber = (await Helper.loadDatabase('def')).length;
+    const ungelesen = (await Helper.loadDatabase('ung')).length;
+    const gelesen = (await Helper.loadDatabase('gel')).length;
+    const verliehen = (await Helper.loadDatabase('ver')).length;
+    const geliehen = (await Helper.loadDatabase('gli')).length;
+    const aussortiert = (await Helper.loadDatabase('aus')).length;
+    const ebook = (await Helper.loadDatabase('ebo')).length;
+    const leseexemplar = (await Helper.loadDatabase('exp')).length;
+    const favoriten = (await Helper.loadDatabase('fav')).length;
+    const fuenfSterne = (await Helper.loadDatabase('gel')).filter(
+      (book) => book.bewertung === 5,
     ).length;
-    const favoriten = data.filter((book) => book.favorit === true).length;
-    const fuenfSterne = data.filter((book) => book.bewertung === 5).length;
-    const fuenfSpice = data.filter((book) => book.spice === 5).length;
-    const gelesenDiesesJahr = data.filter((book) =>
-      checkDate(book.beendet_am, 0),
+    const fuenfSpice = (await Helper.loadDatabase('gel')).filter(
+      (book) => book.spice === 5,
     ).length;
-    const gelesenLetztesJahr = data.filter((book) =>
-      checkDate(book.beendet_am, 1),
+    const gelesenDiesesJahr = (await Helper.loadDatabase('gel')).filter(
+      (book) => checkDate(book.beendet_am, 0),
     ).length;
-    const gelesenVorLetztemJahr = data.filter((book) =>
-      checkDate(book.beendet_am, 2),
+    const gelesenLetztesJahr = (await Helper.loadDatabase('gel')).filter(
+      (book) => checkDate(book.beendet_am, 1),
     ).length;
-    const genreRanking = data.reduce((acc, book) => {
-      if (Object.prototype.hasOwnProperty.call(acc, book.genre)) {
-        acc[book.genre] += 1;
-      } else {
-        acc[book.genre] = 1;
-      }
-      return acc;
-    }, {});
+    const gelesenVorLetztemJahr = (await Helper.loadDatabase('gel')).filter(
+      (book) => checkDate(book.beendet_am, 2),
+    ).length;
+    
+    const genreRanking = (await Helper.loadDatabase('gel')).reduce(
+      (acc, book) => {
+        if (Object.prototype.hasOwnProperty.call(acc, book.genre)) {
+          acc[book.genre] += 1;
+        } else {
+          acc[book.genre] = 1;
+        }
+        return acc;
+      },
+      {},
+    );
 
     const topGenre = Object.entries(genreRanking)
       .sort((a, b) => b[1] - a[1])
@@ -66,6 +75,9 @@ const Stats = (() => {
       ungelesen,
       gelesen,
       verliehen,
+      geliehen,
+      aussortiert,
+      ebook,
       leseexemplar,
       favoriten,
       fuenfSterne,
@@ -111,6 +123,15 @@ const Stats = (() => {
           _('td', data.verliehen || '0'),
         ]),
         _('tr', [
+          _('td', 'Anzahl der geliehenen Bücher:'),
+          _('td', data.geliehen || '0'),
+        ]),
+        _('tr', [
+          _('td', 'Anzahl der aussortierten Bücher:'),
+          _('td', data.aussortiert || '0'),
+        ]),
+        _('tr', [_('td', 'Anzahl der E-Books:'), _('td', data.ebook || '0')]),
+        _('tr', [
           _('td', 'Anzahl der Leseexemplare:'),
           _('td', data.leseexemplar || '0'),
         ]),
@@ -155,7 +176,7 @@ const Stats = (() => {
 
   // Function that will be called when the page is loaded
   const load = async () => {
-    Helper.main.append(_('h1', 'Statistiken'), table(await loadData()));
+    Helper.main.append(table(await loadData()));
     Nav.removeActive();
     Nav.stats.classList.add('active');
   };

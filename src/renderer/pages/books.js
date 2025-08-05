@@ -13,7 +13,7 @@ const Books = (() => {
   const allBooksChip = chip({
     type: 'radio',
     label: 'Mein Bestand',
-    name: 'order',
+    name: 'filter',
     icon: '\\eb32',
     checked: true,
   });
@@ -21,56 +21,56 @@ const Books = (() => {
   const gelesenChip = chip({
     type: 'radio',
     label: 'Gelesen',
-    name: 'order',
+    name: 'filter',
     icon: '\\f53e',
   });
 
   const ungelesenChip = chip({
     type: 'radio',
     label: 'Ungelesen',
-    name: 'order',
+    name: 'filter',
     icon: '\\e0e0',
   });
 
   const favoritChip = chip({
     type: 'radio',
     label: 'Favorit',
-    name: 'order',
+    name: 'filter',
     icon: '\\e87d',
   });
 
   const leseexemplarChip = chip({
     type: 'radio',
     label: 'Leseexemplar',
-    name: 'order',
+    name: 'filter',
     icon: '\\e8b1',
   });
 
   const verliehenChip = chip({
     type: 'radio',
     label: 'Verliehen',
-    name: 'order',
+    name: 'filter',
     icon: '\\e7fd',
   });
 
   const geliehenChip = chip({
     type: 'radio',
     label: 'Geliehen',
-    name: 'order',
+    name: 'filter',
     icon: '\\ebcb',
   });
 
   const aussortiertChip = chip({
     type: 'radio',
     label: 'Aussortiert',
-    name: 'order',
+    name: 'filter',
     icon: '\\e14a',
   });
 
   const ebookChip = chip({
     type: 'radio',
     label: 'E-Book',
-    name: 'order',
+    name: 'filter',
     icon: '\\e30c',
   });
 
@@ -104,7 +104,6 @@ const Books = (() => {
   const load = () => {
     // Add table to the main element and load with default data
     Helper.main.append(
-      _('h1', "Kiara's Bücherwelt"),
       _('form.table-controls', [
         _('div.chips-row', [
           allBooksChip,
@@ -182,37 +181,10 @@ const Books = (() => {
     }
   });
 
-  // Callback for sorting
-  const callback = (e, order) => {
-    const orderType = order.split('-')[0];
-    let el = e.target;
-    if (order === 'def' && el.tagName !== 'BUTTON') {
-      el = el.parentElement;
-    }
-    if (
-      (orderType === 'spi' || orderType === 'bew') &&
-      el.classList.contains('active')
-    ) {
-      if (el.classList.contains('asc')) {
-        el.classList.remove('asc');
-        loadTable(null, order);
-      } else {
-        el.classList.add('asc');
-        loadTable(null, `${orderType}-asc`);
-      }
-    } else if (!el.classList.contains('active')) {
-      removeAllActive();
-      el.classList.add('active');
-      loadTable(null, order);
-    }
-  };
-
-  // Load table with respective order
-  Table.titel.addEventListener('click', (e) => callback(e, 'tit'));
-  Table.genre.addEventListener('click', (e) => callback(e, 'gen'));
-  Table.spice.addEventListener('click', (e) => callback(e, 'spi-desc'));
-  Table.bewertung.addEventListener('click', (e) => callback(e, 'bew-desc'));
-  Table.filter.addEventListener('click', (e) => callback(e, 'def'));
+  Table.selectOrder.addEventListener('change', (event) => {
+    const selectedOrder = event.target.value;
+    loadTable(null, selectedOrder);
+  });
 
   // Books page should be loaded when tab is pressed
   Nav.books.addEventListener('click', () => Helper.updateMain(Books));
