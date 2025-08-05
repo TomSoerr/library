@@ -119,3 +119,21 @@ h2 {
 h3 {
   font: var(--font-headline-small);
 }
+
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding-left: 0;
+    padding-bottom: var(--nav-width);
+  }
+
+  main {
+    padding: var(--space-xl) var(--space-ml);
+  }
+
+  :root:has(dialog[open]) {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+}

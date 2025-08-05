@@ -8,6 +8,7 @@
   align-items: center;
   gap: var(--space-ml);
   padding: var(--space-xxl) 0;
+  z-index: 3;
 }
 
 #nav > div {
@@ -17,4 +18,19 @@
 #nav > div:first-child > :last-child {
   margin-bottom: var(--space-xl);
   margin-top: calc(var(--space-s) * -1);
+}
+
+@media (max-width: 768px) {
+  #nav {
+    height: var(--nav-width);
+    width: 100vw;
+    flex-direction: row-reverse;
+    left: 0;
+    bottom: 0;
+    justify-content: space-evenly;
+  }
+
+  #nav > div:first-child > :last-child {
+    margin: 0;
+  }
 }

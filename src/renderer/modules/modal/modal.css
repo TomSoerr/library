@@ -56,3 +56,16 @@
 #modal p {
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  #modal {
+    height: 45vh;
+    margin-top: var(--space-xl);
+    width: min(95vh, 600px);
+    display: fixed;
+  }
+
+  #modal .modal-content-area {
+    padding: var(--space-xl) var(--space-ml) var(--space-xl);
+  }
+}

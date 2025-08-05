@@ -121,11 +121,53 @@
 
 /* _____________________________ */
 
-@media (max-width: 900px) {
-}
-
 @media (max-width: 768px) {
-}
+  #books .title-autor {
+    grid-area: title-autor;
+  }
 
-@media (max-width: 636px) {
+  #books .ics {
+    grid-area: ics;
+    align-self: center;
+  }
+
+  #books .genre {
+    display: none;
+  }
+
+  #books .spice {
+    grid-area: spice;
+  }
+
+  #books .bewertung {
+    grid-area: bewertung;
+  }
+
+  #books .edit {
+    grid-area: edit;
+  }
+
+  #books ul {
+    margin: 0;
+    display: flex;
+    gap: var(--space-xs);
+    align-items: stretch;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  #books li {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: auto 3fr auto auto;
+    gap: var(--space-xs) var(--space-m);
+    grid-template-areas:
+      "ics title-autor title-autor edit"
+      "ics bewertung spice spice";
+    margin: 0;
+  }
+
+  #books hr {
+    grid-column: span 4;
+  }
 }

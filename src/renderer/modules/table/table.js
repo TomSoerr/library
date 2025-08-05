@@ -80,9 +80,9 @@ const Table = (() => {
    */
   const rowTemplate = (row, empty = false) =>
     _(`li[data-id="${row.id}"]`, [
-      _(`div.ms[data-gelesen="${row.gelesen == 1 ? 'true' : 'false'}"]`),
+      _(`div.ics.ms[data-gelesen="${row.gelesen == 1 ? 'true' : 'false'}"]`),
 
-      _('div', [
+      _('div.title-autor', [
         _(`div.titel${row.favorit ? '.fav' : ''}`, [
           row.titel,
           _('span.ms-within'),

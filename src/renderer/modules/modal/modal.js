@@ -28,6 +28,23 @@ const Modal = (() => {
   Helper.modal = contentArea;
   Helper.dialog = HTMLElement;
 
+  // Function to update the real viewport height
+  const updateViewportHeight = () => {
+    const vh = window.innerHeight;
+    document.documentElement.style.setProperty(
+      '--real-viewport-height',
+      `${vh}px`,
+    );
+  };
+
+  // Update on initial load
+  updateViewportHeight();
+
+  // Update on resize (includes keyboard opening/closing on mobile)
+  window.addEventListener('resize', () => {
+    updateViewportHeight();
+  });
+
   return { HTMLElement, contentArea };
 })();
 
