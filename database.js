@@ -4,7 +4,7 @@ import Dexie from 'dexie';
 const db = new Dexie('library');
 db.version(1).stores({
   books:
-    '++id, autor, titel, spice, bewertung, gelesen, genre, favorit, leseexemplar, verliehen, ist_reihe',
+    '++id, autor, titel, spice, bewertung, gelesen, genre, favorit, leseexemplar, verliehen, ist_reihe, aussortiert, geliehen, geliehen_von, ebook',
 });
 
 // --- Utility Functions ---
@@ -53,66 +53,85 @@ const sortData = (arr, order) => {
 const LibraryService = {
   // CRUD
   async getBook(id) {
-    return await db.books.get(id);
+    return db.books.get(id);
   },
   async getBooks(filter = 'def', order = undefined) {
     console.warn(filter, order);
-    // TODO fix DexieError2 when filtering
     let books = [];
     switch (filter) {
       case 'def':
       case undefined:
       case null:
       case '':
-        books = await db.books.toArray();
+        books = await db.books
+          .filter((book) => book.aussortiert !== 1 && book.geliehen !== 1)
+          .toArray();
         break;
       case 'gel':
-        books = await db.books.where('gelesen').equals(true).toArray();
+        books = await db.books.where('gelesen').equals(1).toArray();
         break;
       case 'ung':
-        books = await db.books.where('gelesen').equals(false).toArray();
+        books = await db.books.where('gelesen').equals(0).toArray();
         break;
       case 'fav':
-        books = await db.books.where('favorit').equals(true).toArray();
+        books = await db.books.where('favorit').equals(1).toArray();
         break;
       case 'exp':
-        books = await db.books.where('leseexemplar').equals(true).toArray();
+        books = await db.books.where('leseexemplar').equals(1).toArray();
         break;
       case 'ver':
-        books = await db.books.where('verliehen').equals(true).toArray();
+        books = await db.books.where('verliehen').equals(1).toArray();
+        break;
+      case 'gli':
+        books = await db.books.where('geliehen').equals(1).toArray();
+        break;
+      case 'aus':
+        books = await db.books.where('aussortiert').equals(1).toArray();
+        break;
+      case 'ebo':
+        books = await db.books.where('ebook').equals(1).toArray();
         break;
       default:
-        if (typeof filter === 'string') {
-          const term = filter.toLowerCase();
-          books = (await db.books.toArray()).filter(
-            (book) =>
-              book.autor?.toLowerCase().includes(term) ||
-              book.titel?.toLowerCase().includes(term) ||
-              book.genre?.toLowerCase().includes(term) ||
-              book.anmerkung?.toLowerCase().includes(term) ||
-              book.verliehen_an?.toLowerCase().includes(term) ||
-              book.isbn?.toLowerCase().includes(term),
-          );
-        } else {
-          books = await db.books.toArray();
-        }
+        const term = filter.toLowerCase();
+        books = (await db.books.toArray()).filter(
+          (book) =>
+            book.autor?.toLowerCase().includes(term) ||
+            book.titel?.toLowerCase().includes(term) ||
+            book.genre?.toLowerCase().includes(term) ||
+            book.anmerkung?.toLowerCase().includes(term) ||
+            book.verliehen_an?.toLowerCase().includes(term) ||
+            book.geliehen_von?.toLowerCase().includes(term) ||
+            book.isbn?.toLowerCase().includes(term),
+        );
         break;
     }
     return order ? sortData(books, order) : books;
   },
   async saveBook(id, data) {
     // Clean up and normalize data
+    console.info('Saving book with data:', data);
     const cleanData = { ...data };
-    ['gelesen', 'ist_reihe', 'favorit', 'leseexemplar', 'verliehen'].forEach(
-      (key) => (cleanData[key] = Boolean(cleanData[key])),
-    );
+    // Process all boolean fields (represented as checkboxes)
+    [
+      'gelesen',
+      'ist_reihe',
+      'favorit',
+      'leseexemplar',
+      'verliehen',
+      'geliehen', // Added
+      'ebook', // Added
+      'aussortiert', // Added
+    ].forEach((key) => (cleanData[key] = cleanData[key] === 'on' ? 1 : 0));
     ['spice', 'bewertung'].forEach(
       (key) => (cleanData[key] = Number(cleanData[key])),
     );
-    cleanData.band = cleanData.band ? Number(cleanData.band) : null;
-    if (!cleanData.ist_reihe) cleanData.band = null;
-    if (!cleanData.gelesen) cleanData.beendet_am = null;
-    if (!cleanData.verliehen) cleanData.verliehen_an = null;
+
+    // Handle special cases
+    cleanData.band = cleanData.band ? Number(cleanData.band) : -1;
+    if (!cleanData.ist_reihe) cleanData.band = -1;
+    if (!cleanData.gelesen) cleanData.beendet_am = '';
+    if (!cleanData.verliehen) cleanData.verliehen_an = '';
+    if (!cleanData.verliehen) cleanData.verliehen_an = '';
 
     if (id !== undefined && id !== null) {
       await db.books.update(Number(id), cleanData);

@@ -65,36 +65,81 @@ const form = ({ data, button }) => {
           type: 'checkbox',
           label: 'Gelesen',
           name: 'gelesen',
-          checked: data ? data.gelesen : false,
+          checked:
+            !data ? false
+            : data.gelesen ? true
+            : false,
           icon: '\\f53e',
         }),
         chip({
           type: 'checkbox',
           label: 'Favorit',
           name: 'favorit',
-          checked: data ? data.favorit : false,
+          checked:
+            !data ? false
+            : data.favorit ? true
+            : false,
           icon: '\\e87d',
         }),
         chip({
           type: 'checkbox',
           label: 'Leseexemplar',
           name: 'leseexemplar',
-          checked: data ? data.leseexemplar : false,
+          checked:
+            !data ? false
+            : data.leseexemplar ? true
+            : false,
           icon: '\\e8b1',
         }),
         chip({
           type: 'checkbox',
           label: 'Reihe',
           name: 'ist_reihe',
-          checked: data ? data.ist_reihe : false,
+          checked:
+            !data ? false
+            : data.ist_reihe ? true
+            : false,
           icon: '\\e02e',
         }),
         chip({
           type: 'checkbox',
           label: 'Verliehen',
           name: 'verliehen',
-          checked: data ? data.verliehen : false,
-          icon: '\\e7fd',
+          checked:
+            !data ? false
+            : data.verliehen ? true
+            : false,
+          icon: '\\f808',
+        }),
+        chip({
+          type: 'checkbox',
+          label: 'Geliehen',
+          name: 'geliehen',
+          checked:
+            !data ? false
+            : data.geliehen ? true
+            : false,
+          icon: '\\ebcb',
+        }),
+        chip({
+          type: 'checkbox',
+          label: 'Aussortiert',
+          name: 'aussortiert',
+          checked:
+            !data ? false
+            : data.aussortiert ? true
+            : false,
+          icon: '\\e14a',
+        }),
+        chip({
+          type: 'checkbox',
+          label: 'E-Book',
+          name: 'ebook',
+          checked:
+            !data ? false
+            : data.ebook ? true
+            : false,
+          icon: '\\e30c',
         }),
       ]),
       input({
@@ -147,28 +192,30 @@ const form = ({ data, button }) => {
           attr: '::min="0"::max="5"::step="1"',
         }),
       ]),
-      _('div.form-row', [
-        input({
-          type: 'text',
-          label: 'ISBN',
-          name: 'isbn',
-          value: data ? data.isbn : '',
-          attr: `::pattern="${ISBNPattern.slice(1, -1)}"`,
-        }),
-        input({
-          type: 'text',
-          label: 'Verlag',
-          name: 'verlag',
-          value: data ? data.verlag : '',
-          attr: `::pattern="${namePattern.slice(1, -1)}"`,
-        }),
-      ]),
+      // input({
+      //   type: 'text',
+      //   label: 'ISBN',
+      //   name: 'isbn',
+      //   value: data ? data.isbn : '',
+      //   attr: `::pattern="${ISBNPattern.slice(1, -1)}"`,
+      // }),
+      input({
+        type: 'text',
+        label: 'Verlag',
+        name: 'verlag',
+        value: data ? data.verlag : '',
+        attr: `::pattern="${namePattern.slice(1, -1)}"`,
+      }),
+
       _('div.form-row', [
         input({
           type: 'number',
           label: 'Band',
           name: 'band',
-          value: data ? data.band : '',
+          value:
+            !data ? ''
+            : data.band === -1 ? ''
+            : data.band,
           attr: '::min="1"::step="1"',
         }),
         input({
@@ -176,6 +223,13 @@ const form = ({ data, button }) => {
           label: 'Verliehen an',
           name: 'verliehen_an',
           value: data ? data.verliehen_an : '',
+          attr: `::pattern="${namePattern.slice(1, -1)}"`,
+        }),
+        input({
+          type: 'text',
+          label: 'Geliehen von',
+          name: 'geliehen_von',
+          value: data ? data.geliehen_von : '',
           attr: `::pattern="${namePattern.slice(1, -1)}"`,
         }),
       ]),

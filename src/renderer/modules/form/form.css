@@ -103,3 +103,7 @@ form.book-data:has([name="ist_reihe"]:not(:checked)) [for="band"] {
 form.book-data:has([name="verliehen"]:not(:checked)) [for="verliehen_an"] {
   display: none;
 }
+
+form.book-data:has([name="geliehen"]:not(:checked)) [for="geliehen_von"] {
+  display: none;
+}

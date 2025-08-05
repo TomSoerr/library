@@ -1,4 +1,4 @@
-import LibraryService from "../../database";
+import LibraryService from '../../database';
 
 class Helper {
   /**
@@ -24,6 +24,7 @@ class Helper {
    * @param {HTMLElement} content - Content of the modal
    */
   static updateModal(content) {
+    console.info('Updating modal with content:', content);
     Helper.modal.append(content);
     Helper.dialog.showModal();
   }
@@ -68,7 +69,7 @@ class Helper {
 
   /**
    * The static method to load the database
-   * @param {("def"|"fav"|"exp"|"ver"|"ung"|"gel")} filter
+   * @param filter
    * @param {("def"|"tit"|"gen"|"spi-desc"|"spi-asc"|"bew-desc"|"bew-asc")}
    * @returns {Object} - The database object
    */

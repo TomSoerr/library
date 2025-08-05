@@ -54,7 +54,9 @@ const Table = (() => {
     penButton.addEventListener('click', async (e) => {
       const { id } = e.target.closest('tr').dataset;
       if (id && typeof Number(id) === 'number') {
-        const rowData = await LibraryService.getBook(id);
+        const rowData = await LibraryService.getBook(+id);
+        console.info('Row data for edit:', rowData);
+        console.info('id:', typeof id, id);
         if (rowData) {
           Helper.updateModal(
             _('div.modal-content', [
@@ -79,7 +81,7 @@ const Table = (() => {
    */
   const rowTemplate = (row, empty = false) =>
     _(`tr[data-id="${row.id}"]`, [
-      _(`td.ms[data-gelesen="${row.gelesen}"]`),
+      _(`td.ms[data-gelesen="${row.gelesen == 1 ? 'true' : 'false'}"]`),
       _('td', [
         _(`div.titel${row.favorit ? '.fav' : ''}`, [
           row.titel,

@@ -12,7 +12,7 @@ const Books = (() => {
   // Chips for filtering
   const allBooksChip = chip({
     type: 'radio',
-    label: 'Alle Bücher',
+    label: 'Mein Bestand',
     name: 'order',
     icon: '\\eb32',
     checked: true,
@@ -53,12 +53,33 @@ const Books = (() => {
     icon: '\\e7fd',
   });
 
+  const geliehenChip = chip({
+    type: 'radio',
+    label: 'Geliehen',
+    name: 'order',
+    icon: '\\ebcb',
+  });
+
+  const aussortiertChip = chip({
+    type: 'radio',
+    label: 'Aussortiert',
+    name: 'order',
+    icon: '\\e14a',
+  });
+
+  const ebookChip = chip({
+    type: 'radio',
+    label: 'E-Book',
+    name: 'order',
+    icon: '\\e30c',
+  });
+
   // Variables for the current order and filter
   let currentOrder = 'def';
   let currentFilter = 'def';
 
   /**
-   * @param {("def"|"fav"|"exp"|"ver"|"ung"|"gel")} filter
+   * @param filter
    * @param {("def"|"tit"|"gen"|"spi-desc"|"spi-asc"|"bew-desc"|"bew-asc")} order
    */
   const loadTable = async (filter = null, order = null) => {
@@ -92,6 +113,9 @@ const Books = (() => {
           favoritChip,
           leseexemplarChip,
           verliehenChip,
+          geliehenChip,
+          aussortiertChip,
+          ebookChip,
           searchChip.HTMLElement,
         ]),
       ]),
@@ -128,6 +152,9 @@ const Books = (() => {
   favoritChip.addEventListener('change', () => loadTable('fav'));
   leseexemplarChip.addEventListener('change', () => loadTable('exp'));
   verliehenChip.addEventListener('change', () => loadTable('ver'));
+  geliehenChip.addEventListener('change', () => loadTable('gli'));
+  aussortiertChip.addEventListener('change', () => loadTable('aus'));
+  ebookChip.addEventListener('change', () => loadTable('ebo'));
 
   // Load table with search input as filter
   searchChip.button.addEventListener('change', () => {

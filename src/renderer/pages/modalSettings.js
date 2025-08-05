@@ -31,17 +31,13 @@ const ModalSettings = (() => {
 
   exportButton.addEventListener('click', LibraryService.exportDatabase);
 
-  deleteButton.addEventListener('click', () => {
-    LibraryService.deleteDatabase().then(Helper.callDataChangeFn);
-  });
-
   // Create the modal content
   const HTMLElement = _('div.modal-content', [
     _('h2', 'Einstellungen'),
     _('h3', 'Datenbank'),
     _('p', 'Diese Einstellungen sind mit großer Vorsicht zu behandeln!'),
     // Remove import and delete button for production
-    _('div.button-row', [exportButton, importButton, deleteButton]),
+    _('div.button-row', [exportButton, importButton]),
     _('h3', 'Sortierung'),
     _(
       'p',
