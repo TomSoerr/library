@@ -18,7 +18,7 @@ export default defineConfig({
         short_name: 'Bücherwelt',
         description: 'Book library management application',
         orientation: 'portrait',
-        theme_color: '#fbd9ea',
+        theme_color: '#fff8f8',
         background_color: '#fff8f8',
         display: 'standalone',
         display_override: ['standalone', 'window-controls-overlay'],
@@ -66,7 +66,7 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'assets',
-              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              expiration: { maxEntries: 100, maxAgeSeconds: 6000000 },
             },
           },
         ],
