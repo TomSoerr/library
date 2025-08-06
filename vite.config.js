@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   root: 'src/renderer',
+  base: '/library/',
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
@@ -18,6 +19,8 @@ export default defineConfig({
         description: 'Book library management application',
         theme_color: '#844b6f',
       },
+      scope: '/library/',
+      base: '/library/',
     }),
   ],
   server: {
