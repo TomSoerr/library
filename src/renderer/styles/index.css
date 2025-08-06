@@ -128,6 +128,23 @@ h3 {
 
   main {
     padding: var(--space-xl) var(--space-ml);
+    height: calc(100dvh - var(--nav-width));
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  main::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
   }
 
   :root:has(dialog[open]) {

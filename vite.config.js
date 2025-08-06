@@ -12,15 +12,66 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.ico', 'icon.icns', 'img1.png', 'img2.png'],
+      includeAssets: ['fonts/*.woff2'],
       manifest: {
         name: "Kiara's Bücherwelt",
         short_name: 'Bücherwelt',
         description: 'Book library management application',
-        theme_color: '#844b6f',
+        orientation: 'portrait',
+        theme_color: '#fbd9ea',
+        background_color: '#fff8f8',
+        display: 'standalone',
+        display_override: ['standalone', 'window-controls-overlay'],
+        launch_handler: {
+          client_mode: ['navigate-existing', 'auto'],
+        },
+        start_url: '/library/',
+        publicDir: resolve(__dirname, 'src/renderer/public'),
+        scope: '/library/',
+        base: '/library/',
+        screenshots: [
+          {
+            src: 'mobile-screenshot.png',
+            sizes: '750x1334',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+          {
+            src: 'desktop-screenshot.png',
+            sizes: '1920x1080',
+            type: 'image/png',
+            form_factor: 'wide',
+          },
+        ],
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
       },
-      scope: '/library/',
-      base: '/library/',
+
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,woff2,png}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\.(?:js|css|html|woff2)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'assets',
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+        ],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+      },
     }),
   ],
   server: {
