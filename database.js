@@ -56,7 +56,6 @@ const LibraryService = {
     return db.books.get(id);
   },
   async getBooks(filter = 'def', order = undefined) {
-    console.warn(filter, order);
     let books = [];
     switch (filter) {
       case 'def':
